@@ -1,8 +1,8 @@
 ### Description
 
-Design a Multi Set. Like a Set, it allows for efficient storage and retrieval of items without a guaranteed order.
+Implement a Multi Set. Like a set, it allows for efficient storage and retrieval of items without a guaranteed order.
 
-However, unlike a Set, it allows for multiple occurrences of the same element by tracking the count of each unique element it contains.
+However, unlike a set, it allows for multiple occurrences of the same element by tracking the count of each unique element it contains.
 
 ### Example:
 

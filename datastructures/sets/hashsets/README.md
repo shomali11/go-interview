@@ -1,6 +1,6 @@
 ### Description
 
-A Set is a collection that cannot contain duplicate elements
+Implement a Set. A set is a collection that cannot contain duplicate elements
 
 ### Example:
 
