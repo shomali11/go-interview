@@ -13,7 +13,7 @@ const (
 )
 
 var (
-	errRuneNotInt = errors.New("rune is not int")
+	errRuneNotInt = errors.New("digit is not integer")
 )
 
 // Add adds two binary string numbers
