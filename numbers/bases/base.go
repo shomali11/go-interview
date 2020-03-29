@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"math"
 	"strings"
+
+	"github.com/shomali11/go-interview/strings/reverse"
 )
 
 const (
@@ -19,7 +21,7 @@ func Encode(number int, base int) string {
 		buffer.WriteString(string(codes[remainder]))
 		number /= base
 	}
-	return reverse(buffer.String())
+	return reverse.Reverse(buffer.String())
 }
 
 // Decode converts a number of a specific base
@@ -34,13 +36,4 @@ func Decode(number string, base int) int {
 		exponent--
 	}
 	return int(sum)
-}
-
-func reverse(text string) string {
-	runes := []rune(text)
-	length := len(runes)
-	for i, j := 0, length-1; i < length/2; i, j = i+1, j-1 {
-		runes[i], runes[j] = runes[j], runes[i]
-	}
-	return string(runes)
 }
