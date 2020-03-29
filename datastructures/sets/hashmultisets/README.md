@@ -7,6 +7,6 @@ However, unlike a set, it allows for multiple occurrences of the same element by
 ### Example:
 
 ```
-Input: values = "value1", "value1", "value2" 
-Output: [{key: "value1", count:2}, {key: "value2", count:1}]
+Input: Push "value1", Push "value2", Push "value3", Pop 
+Output: ["value2", "value1"]
 ```
