@@ -1,4 +1,4 @@
-package division
+package divisions
 
 import (
 	"bytes"
