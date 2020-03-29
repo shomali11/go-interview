@@ -7,15 +7,19 @@ import (
 )
 
 func TestHashSet(t *testing.T) {
-	set := NewHashSet()
+	set := New()
+	assert.Equal(t, set.IsEmpty(), true)
+
 	set.Add("hello")
 
 	assert.Equal(t, set.Contains("hello"), true)
 	assert.Equal(t, set.Contains("unknown"), false)
+	assert.Equal(t, set.IsEmpty(), false)
 	assert.Equal(t, set.Size(), 1)
 	assert.Equal(t, set.List()[0], "hello")
 
 	set.Clear()
+	assert.Equal(t, set.IsEmpty(), true)
 	assert.Equal(t, set.Size(), 0)
 
 	set.Add("cool")
@@ -29,12 +33,12 @@ func TestHashSet(t *testing.T) {
 }
 
 func TestHashSetMerge(t *testing.T) {
-	set1 := NewHashSet()
+	set1 := New()
 	set1.Add("hello", "cool")
 
-	set2 := NewHashSet("hello", "sweet")
+	set2 := New("hello", "sweet")
 
-	set3 := NewHashSet()
+	set3 := New()
 	set3.Merge(set1, set2)
 
 	assert.Equal(t, set3.Size(), 3)

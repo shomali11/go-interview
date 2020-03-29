@@ -1,11 +1,9 @@
 package hashsets
 
-// NewHashSet factory that creates a hash set
-func NewHashSet(values ...string) *HashSet {
+// New factory that creates a hash set
+func New(values ...string) *HashSet {
 	set := HashSet{data: make(map[string]bool)}
-	for _, value := range values {
-		set.Add(value)
-	}
+	set.Add(values...)
 	return &set
 }
 
@@ -59,6 +57,11 @@ func (s *HashSet) List() []string {
 		values = append(values, key)
 	}
 	return values
+}
+
+// IsEmpty checks if the set is empty
+func (s *HashSet) IsEmpty() bool {
+	return len(s.data) == 0
 }
 
 // Size returns size of the set

@@ -7,7 +7,7 @@ import (
 )
 
 func TestHashMultiSet(t *testing.T) {
-	set := NewHashMultiSet()
+	set := New()
 	set.Add("hello")
 
 	assert.Equal(t, set.Contains("hello"), true)
@@ -33,12 +33,12 @@ func TestHashMultiSet(t *testing.T) {
 }
 
 func TestHashMultiSetMerge(t *testing.T) {
-	set1 := NewHashMultiSet()
+	set1 := New()
 	set1.Add("hello", "cool")
 
-	set2 := NewHashMultiSet("hello", "sweet")
+	set2 := New("hello", "sweet")
 
-	set3 := NewHashMultiSet()
+	set3 := New()
 	set3.Merge(set1, set2)
 
 	assert.Equal(t, set3.Size(), 3)
@@ -49,7 +49,7 @@ func TestHashMultiSetMerge(t *testing.T) {
 }
 
 func TestHashMultiSetTop(t *testing.T) {
-	set := NewHashMultiSet()
+	set := New()
 	set.IncrementBy("key1", 10)
 	set.IncrementBy("key2", 15)
 

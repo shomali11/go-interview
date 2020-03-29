@@ -2,12 +2,10 @@ package hashmultisets
 
 import "sort"
 
-// NewHashMultiSet factory that creates a new Hash Multi Set
-func NewHashMultiSet(values ...string) *HashMultiSet {
+// New factory that creates a new Hash Multi Set
+func New(values ...string) *HashMultiSet {
 	set := HashMultiSet{data: make(map[string]int)}
-	for _, value := range values {
-		set.Add(value)
-	}
+	set.Add(values...)
 	return &set
 }
 
@@ -79,6 +77,11 @@ func (s *HashMultiSet) Remove(values ...string) {
 // Clear clears the set
 func (s *HashMultiSet) Clear() {
 	s.data = make(map[string]int)
+}
+
+// IsEmpty checks if the set is empty
+func (s *HashMultiSet) IsEmpty() bool {
+	return len(s.data) == 0
 }
 
 // Size returns size of the set
