@@ -19,43 +19,61 @@ func Divide(a int, b int) string {
 		return errorResult
 	}
 
-	value := a / b
+	quotient := a / b
 	remainder := a % b
-	return fmt.Sprintf(resultFormat, value, divide(remainder, b))
+	fractionString := divide(remainder, b)
+
+	// If no fraction result
+	if len(fractionString) == 0 {
+		return fmt.Sprint(quotient)
+	}
+	return fmt.Sprintf(resultFormat, quotient, fractionString)
 }
 
+// divide returns the fraction with repeating parts between paranthesis
 func divide(a int, b int) string {
 	remainderIndexMap := make(map[int]int)
-	values := make([]int, 0)
+	digits := make([]int, 0)
 
-	value := 0
+	digit := 0
 	remainder := a
+
+	// While we have not seen that digit before
 	for !exists(remainderIndexMap, remainder) {
-		remainderIndexMap[remainder] = len(values)
+		remainderIndexMap[remainder] = len(digits)
 
 		remainder *= 10
-		value = remainder / b
+		digit = remainder / b
 		remainder = remainder % b
-		values = append(values, value)
+		digits = append(digits, digit)
 	}
 
-	index, _ := remainderIndexMap[remainder]
+	repeatingDigitIndex := remainderIndexMap[remainder]
+	return concat(digits, repeatingDigitIndex)
+}
 
+// concat create the string result
+func concat(digits []int, repeatingDigitIndex int) string {
 	var buffer bytes.Buffer
-	for i := 0; i < index; i++ {
-		buffer.WriteString(strconv.Itoa(values[i]))
+	for i := 0; i < repeatingDigitIndex; i++ {
+		buffer.WriteString(strconv.Itoa(digits[i]))
 	}
 
+	// If the repeating result is a 0, return
+	if repeatingDigitIndex == len(digits)-1 && digits[repeatingDigitIndex] == 0 {
+		return buffer.String()
+	}
+
+	// Collect repeating digits between paranthesis
 	buffer.WriteString(leftParenthesis)
-
-	for i := index; i < len(values); i++ {
-		buffer.WriteString(strconv.Itoa(values[i]))
+	for i := repeatingDigitIndex; i < len(digits); i++ {
+		buffer.WriteString(strconv.Itoa(digits[i]))
 	}
-
 	buffer.WriteString(rightParenthesis)
 	return buffer.String()
 }
 
+// exists Determines whether a key exists
 func exists(myMap map[int]int, key int) bool {
 	_, ok := myMap[key]
 	return ok
