@@ -5,6 +5,6 @@ Implement a Stack. A stack is an abstract data type that serves as a collection 
 ### Example:
 
 ```
-Input: values = "value1", "value1", "value2" 
-Output: ["value1", "value2"]
+Input: Push "value1", Push "value2", Push "value3", Pop 
+Output: ["value2", "value1"]
 ```
