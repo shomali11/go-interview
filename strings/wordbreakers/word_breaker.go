@@ -1,6 +1,6 @@
-package words
+package wordbreakers
 
-import "github.com/shomali11/go-interview/datastructures/sets"
+import "github.com/shomali11/go-interview/datastructures/sets/hashsets"
 
 const (
 	empty = ""
@@ -8,11 +8,11 @@ const (
 
 // BreakWord breaks into possible words
 func BreakWord(input string, values []string) string {
-	dictionary := sets.NewSet(values...)
+	dictionary := hashsets.NewHashSet(values...)
 	return breakWord(input, dictionary, make(map[string]string))
 }
 
-func breakWord(input string, dictionary *sets.Set, cache map[string]string) string {
+func breakWord(input string, dictionary *hashsets.HashSet, cache map[string]string) string {
 	if dictionary.Contains(input) {
 		return input
 	}
@@ -39,13 +39,13 @@ func breakWord(input string, dictionary *sets.Set, cache map[string]string) stri
 
 // ExtractWords extracts all possible words
 func ExtractWords(input string, values []string) []string {
-	dictionary := sets.NewSet(values...)
+	dictionary := hashsets.NewHashSet(values...)
 	results := extractWords(input, dictionary, make(map[string]string))
 	return results.List()
 }
 
-func extractWords(input string, dictionary *sets.Set, cache map[string]string) *sets.Set {
-	results := sets.NewSet()
+func extractWords(input string, dictionary *hashsets.HashSet, cache map[string]string) *hashsets.HashSet {
+	results := hashsets.NewHashSet()
 	if dictionary.Contains(input) {
 		results.Add(input)
 	}

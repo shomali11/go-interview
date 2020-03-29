@@ -1,4 +1,4 @@
-package words
+package wordbreakers
 
 import (
 	"reflect"
@@ -8,10 +8,11 @@ import (
 )
 
 var (
-	dictionary = []string{"app", "apple", "applet", "let", "table", "tablet", "able", "t"}
+	dictionary = []string{"app", "apple", "pie", "applet", "let", "table", "tablet", "able", "t"}
 )
 
 func TestBreakWord(t *testing.T) {
+	assert.Equal(t, BreakWord("applepie", dictionary), "apple pie")
 	assert.Equal(t, BreakWord("applet", dictionary), "applet")
 	assert.Equal(t, BreakWord("apples", dictionary), "")
 	assert.Equal(t, BreakWord("boo", dictionary), "")
