@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	codes = "0123456789ABCDEF"
+	codes = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 )
 
 // Encode converts a number to a given base
