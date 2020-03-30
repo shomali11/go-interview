@@ -2,20 +2,20 @@ package hashsets
 
 // New factory that creates a hash set
 func New(values ...string) *HashSet {
-	set := HashSet{data: make(map[string]bool)}
+	set := HashSet{data: make(map[string]struct{})}
 	set.Add(values...)
 	return &set
 }
 
 // HashSet datastructure
 type HashSet struct {
-	data map[string]bool
+	data map[string]struct{}
 }
 
 // Add adds values to the set
 func (s *HashSet) Add(values ...string) {
 	for _, value := range values {
-		s.data[value] = true
+		s.data[value] = struct{}{}
 	}
 }
 
@@ -26,14 +26,32 @@ func (s *HashSet) Remove(values ...string) {
 	}
 }
 
-// Contains checks if values are in the set
-func (s *HashSet) Contains(values ...string) bool {
+// Contains checks if the value is in the set
+func (s *HashSet) Contains(value string) bool {
+	_, exists := s.data[value]
+	return exists
+}
+
+// ContainsAll checks if all values are in the set
+func (s *HashSet) ContainsAll(values ...string) bool {
 	for _, value := range values {
-		if !s.data[value] {
+		_, exists := s.data[value]
+		if !exists {
 			return false
 		}
 	}
 	return true
+}
+
+// ContainsAny checks if any of the values are in the set
+func (s *HashSet) ContainsAny(values ...string) bool {
+	for _, value := range values {
+		_, exists := s.data[value]
+		if exists {
+			return true
+		}
+	}
+	return false
 }
 
 // Merge the two sets
@@ -47,7 +65,7 @@ func (s *HashSet) Merge(sets ...*HashSet) {
 
 // Clear clears set
 func (s *HashSet) Clear() {
-	s.data = make(map[string]bool)
+	s.data = make(map[string]struct{})
 }
 
 // List returns values

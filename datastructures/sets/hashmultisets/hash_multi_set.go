@@ -52,7 +52,13 @@ func (s *HashMultiSet) List() []string {
 }
 
 // Contains checks if a value is in the set
-func (s *HashMultiSet) Contains(values ...string) bool {
+func (s *HashMultiSet) Contains(value string) bool {
+	_, exists := s.data[value]
+	return exists
+}
+
+// ContainsAll checks if all values are in the set
+func (s *HashMultiSet) ContainsAll(values ...string) bool {
 	for _, value := range values {
 		_, exists := s.data[value]
 		if !exists {
@@ -60,6 +66,17 @@ func (s *HashMultiSet) Contains(values ...string) bool {
 		}
 	}
 	return true
+}
+
+// ContainsAny checks if any values are in the set
+func (s *HashMultiSet) ContainsAny(values ...string) bool {
+	for _, value := range values {
+		_, exists := s.data[value]
+		if exists {
+			return true
+		}
+	}
+	return false
 }
 
 // GetCount returns count associated with the value

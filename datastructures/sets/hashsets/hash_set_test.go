@@ -14,6 +14,8 @@ func TestHashSet(t *testing.T) {
 
 	assert.Equal(t, set.Contains("hello"), true)
 	assert.Equal(t, set.Contains("unknown"), false)
+	assert.Equal(t, set.ContainsAll("hello" , "unknown"), false)
+	assert.Equal(t, set.ContainsAny("hello" , "unknown"), true)
 	assert.Equal(t, set.IsEmpty(), false)
 	assert.Equal(t, set.Size(), 1)
 	assert.Equal(t, set.List()[0], "hello")
@@ -24,12 +26,16 @@ func TestHashSet(t *testing.T) {
 
 	set.Add("cool")
 	assert.Equal(t, set.Contains("cool"), true)
+	assert.Equal(t, set.ContainsAll("cool"), true)
+	assert.Equal(t, set.ContainsAny("cool"), true)
 	assert.Equal(t, set.Size(), 1)
 	assert.Equal(t, set.List()[0], "cool")
 
 	set.Remove("cool")
 	assert.Equal(t, set.Size(), 0)
 	assert.Equal(t, set.Contains("cool"), false)
+	assert.Equal(t, set.ContainsAll("cool"), false)
+	assert.Equal(t, set.ContainsAny("cool"), false)
 }
 
 func TestHashSetMerge(t *testing.T) {
@@ -42,5 +48,5 @@ func TestHashSetMerge(t *testing.T) {
 	set3.Merge(set1, set2)
 
 	assert.Equal(t, set3.Size(), 3)
-	assert.Equal(t, set3.Contains("hello", "cool", "sweet"), true)
+	assert.Equal(t, set3.ContainsAll("hello", "cool", "sweet"), true)
 }

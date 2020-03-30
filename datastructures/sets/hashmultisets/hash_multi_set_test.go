@@ -14,6 +14,8 @@ func TestHashMultiSet(t *testing.T) {
 	assert.Equal(t, set.GetCount("hello"), 1)
 	assert.Equal(t, set.Contains("unknown"), false)
 	assert.Equal(t, set.GetCount("unknown"), 0)
+	assert.Equal(t, set.ContainsAll("hello", "unknown"), false)
+	assert.Equal(t, set.ContainsAny("hello", "unknown"), true)
 	assert.Equal(t, set.Size(), 1)
 	assert.Equal(t, set.List()[0], "hello")
 
@@ -22,6 +24,8 @@ func TestHashMultiSet(t *testing.T) {
 
 	set.Add("cool")
 	assert.Equal(t, set.Contains("cool"), true)
+	assert.Equal(t, set.ContainsAll("cool"), true)
+	assert.Equal(t, set.ContainsAny("cool"), true)
 	assert.Equal(t, set.GetCount("cool"), 1)
 	assert.Equal(t, set.Size(), 1)
 	assert.Equal(t, set.List()[0], "cool")
@@ -29,6 +33,8 @@ func TestHashMultiSet(t *testing.T) {
 	set.Remove("cool")
 	assert.Equal(t, set.Size(), 0)
 	assert.Equal(t, set.Contains("cool"), false)
+	assert.Equal(t, set.ContainsAll("cool"), false)
+	assert.Equal(t, set.ContainsAny("cool"), false)
 	assert.Equal(t, set.GetCount("cool"), 0)
 }
 
@@ -45,7 +51,7 @@ func TestHashMultiSetMerge(t *testing.T) {
 	assert.Equal(t, set3.GetCount("hello"), 2)
 	assert.Equal(t, set3.GetCount("cool"), 1)
 	assert.Equal(t, set3.GetCount("sweet"), 1)
-	assert.Equal(t, set3.Contains("hello", "cool", "sweet"), true)
+	assert.Equal(t, set3.ContainsAll("hello", "cool", "sweet"), true)
 }
 
 func TestHashMultiSetTop(t *testing.T) {
