@@ -8,8 +8,8 @@ A number is a perfect number if is equal to sum of its proper divisors, that is,
 Input: number = 15
 Output: false
 
-Divisors of 15 are 1, 3 and 5. Sum of 
-divisors is 9 which is not equal to 15.
+Divisors of 15 are 1, 3 and 5. 
+Sum of divisors is 9 which is not equal to 15.
 ```
 
 ### Example 2:
@@ -18,6 +18,6 @@ divisors is 9 which is not equal to 15.
 Input: number = 6
 Output: true
 
-Divisors of 6 are 1, 2 and 3. Sum of 
-divisors is 6.
+Divisors of 6 are 1, 2 and 3. 
+Sum of divisors is 6.
 ```
