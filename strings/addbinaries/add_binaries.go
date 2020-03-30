@@ -5,7 +5,7 @@ import (
 	"errors"
 	"strconv"
 
-	"github.com/shomali11/go-interview/strings/reverse"
+	"github.com/shomali11/go-interview/strings/reverses"
 )
 
 const (
@@ -69,7 +69,7 @@ func Add(number1 string, number2 string) (string, error) {
 	if carry > 0 {
 		result.WriteString(strconv.Itoa(carry))
 	}
-	return reverse.Reverse(result.String()), nil
+	return reverses.Reverse(result.String()), nil
 }
 
 func getNumber(numberRunes []rune, index int) (int, error) {

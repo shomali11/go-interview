@@ -1,4 +1,4 @@
-package reverse
+package reverses
 
 // Reverse reverse a string
 func Reverse(text string) string {
