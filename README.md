@@ -6,7 +6,6 @@ Collection of Technical Interview Questions solved with Go
   * [Postfix](https://github.com/shomali11/go-interview/tree/master/calculations/postfixes)
   * [Repeating Fractions](https://github.com/shomali11/go-interview/tree/master/calculations/repeatingfractions)
 * [Datastructures](https://github.com/shomali11/go-interview/tree/master/datastructures)
-  * [Linked Lists](https://github.com/shomali11/go-interview/tree/master/datastructures/linkedlists)
   * [Priority Queues](https://github.com/shomali11/go-interview/tree/master/datastructures/priorityqueues)
   * [Sets](https://github.com/shomali11/go-interview/tree/master/datastructures/sets)
     * [Hash Multi Sets](https://github.com/shomali11/go-interview/tree/master/datastructures/sets/hashmultisets)
