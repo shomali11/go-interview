@@ -30,6 +30,16 @@ func TestStack(t *testing.T) {
 	assert.Equal(t, stack.IsEmpty(), false)
 	assert.Equal(t, stack.Size(), 1)
 
+	stack.Push(true)
+	assert.Equal(t, stack.IsEmpty(), false)
+	assert.Equal(t, stack.Size(), 2)
+
+	value, err = stack.Pop()
+	assert.Nil(t, err)
+	assert.Equal(t, stack.IsEmpty(), false)
+	assert.Equal(t, stack.Size(), 1)
+	assert.Equal(t, value, true)
+
 	value, err = stack.Pop()
 	assert.Nil(t, err)
 	assert.Equal(t, stack.IsEmpty(), true)

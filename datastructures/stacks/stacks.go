@@ -46,8 +46,10 @@ func (s *Stack) Pop() (interface{}, error) {
 		return nil, errEmptyStack
 	}
 
-	value := s.array[len(s.array)-1]
-	s.array = s.array[:len(s.array)-1]
+	size := s.Size()
+	value := s.array[size-1]
+	s.array[size-1] = nil
+	s.array = s.array[:size-1]
 	return value, nil
 }
 
@@ -57,6 +59,6 @@ func (s *Stack) Peek() (interface{}, error) {
 		return nil, errEmptyStack
 	}
 
-	value := s.array[len(s.array)-1]
+	value := s.array[s.Size()-1]
 	return value, nil
 }
