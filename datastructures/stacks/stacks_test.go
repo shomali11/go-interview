@@ -26,7 +26,7 @@ func TestStack(t *testing.T) {
 	_, err = stack.Peek()
 	assert.NotNil(t, err)
 
-	stack.Push("cool")
+	stack.Push(111)
 	assert.Equal(t, stack.IsEmpty(), false)
 	assert.Equal(t, stack.Size(), 1)
 
@@ -34,7 +34,7 @@ func TestStack(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, stack.IsEmpty(), true)
 	assert.Equal(t, stack.Size(), 0)
-	assert.Equal(t, value, "cool")
+	assert.Equal(t, value, 111)
 
 	_, err = stack.Pop()
 	assert.NotNil(t, err)

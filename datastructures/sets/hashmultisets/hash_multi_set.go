@@ -3,21 +3,21 @@ package hashmultisets
 import "sort"
 
 // New factory that creates a new Hash Multi Set
-func New(values ...string) *HashMultiSet {
-	set := HashMultiSet{data: make(map[string]int)}
+func New(values ...interface{}) *HashMultiSet {
+	set := HashMultiSet{data: make(map[interface{}]int)}
 	set.Add(values...)
 	return &set
 }
 
 // MultiSetPair a set's key/count pair
 type MultiSetPair struct {
-	Key   string
+	Key   interface{}
 	Count int
 }
 
 // HashMultiSet a data structure representing a set with counts
 type HashMultiSet struct {
-	data map[string]int
+	data map[interface{}]int
 }
 
 // Merge merge multiple sets
@@ -30,21 +30,21 @@ func (s *HashMultiSet) Merge(sets ...*HashMultiSet) {
 }
 
 // Add adds a value to the set
-func (s *HashMultiSet) Add(values ...string) {
+func (s *HashMultiSet) Add(values ...interface{}) {
 	for _, value := range values {
 		s.IncrementBy(value, 1)
 	}
 }
 
 // IncrementBy increments a value's count by a number
-func (s *HashMultiSet) IncrementBy(value string, count int) {
+func (s *HashMultiSet) IncrementBy(value interface{}, count int) {
 	existingCount := s.data[value]
 	s.data[value] = existingCount + count
 }
 
 // List returns a list of the set's values
-func (s *HashMultiSet) List() []string {
-	values := make([]string, 0)
+func (s *HashMultiSet) List() []interface{} {
+	values := make([]interface{}, 0)
 	for key := range s.data {
 		values = append(values, key)
 	}
@@ -52,13 +52,13 @@ func (s *HashMultiSet) List() []string {
 }
 
 // Contains checks if a value is in the set
-func (s *HashMultiSet) Contains(value string) bool {
+func (s *HashMultiSet) Contains(value interface{}) bool {
 	_, exists := s.data[value]
 	return exists
 }
 
 // ContainsAll checks if all values are in the set
-func (s *HashMultiSet) ContainsAll(values ...string) bool {
+func (s *HashMultiSet) ContainsAll(values ...interface{}) bool {
 	for _, value := range values {
 		_, exists := s.data[value]
 		if !exists {
@@ -69,7 +69,7 @@ func (s *HashMultiSet) ContainsAll(values ...string) bool {
 }
 
 // ContainsAny checks if any values are in the set
-func (s *HashMultiSet) ContainsAny(values ...string) bool {
+func (s *HashMultiSet) ContainsAny(values ...interface{}) bool {
 	for _, value := range values {
 		_, exists := s.data[value]
 		if exists {
@@ -80,12 +80,12 @@ func (s *HashMultiSet) ContainsAny(values ...string) bool {
 }
 
 // GetCount returns count associated with the value
-func (s *HashMultiSet) GetCount(value string) int {
+func (s *HashMultiSet) GetCount(value interface{}) int {
 	return s.data[value]
 }
 
 // Remove removes a value
-func (s *HashMultiSet) Remove(values ...string) {
+func (s *HashMultiSet) Remove(values ...interface{}) {
 	for _, value := range values {
 		delete(s.data, value)
 	}
@@ -93,7 +93,7 @@ func (s *HashMultiSet) Remove(values ...string) {
 
 // Clear clears the set
 func (s *HashMultiSet) Clear() {
-	s.data = make(map[string]int)
+	s.data = make(map[interface{}]int)
 }
 
 // IsEmpty checks if the set is empty

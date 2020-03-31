@@ -1,14 +1,23 @@
 package wordbreakers
 
-import "github.com/shomali11/go-interview/datastructures/sets/hashsets"
+import (
+	"fmt"
+
+	"github.com/shomali11/go-interview/datastructures/sets/hashsets"
+)
 
 const (
-	empty = ""
+	empty                   = ""
+	stringFormat            = "%s"
+	stringSpaceStringFormat = "%s %s"
 )
 
 // BreakWord breaks into possible words
 func BreakWord(input string, values []string) string {
-	dictionary := hashsets.New(values...)
+	dictionary := hashsets.New()
+	for _, value := range values {
+		dictionary.Add(value)
+	}
 	return breakWord(input, dictionary, make(map[string]string))
 }
 
@@ -29,8 +38,9 @@ func breakWord(input string, dictionary *hashsets.HashSet, cache map[string]stri
 			suffix := string(inputRunes[i:])
 			brokenSuffix := breakWord(suffix, dictionary, cache)
 			if len(brokenSuffix) > 0 {
-				cache[input] = prefix + " " + brokenSuffix
-				return prefix + " " + brokenSuffix
+				result := fmt.Sprintf(stringSpaceStringFormat, prefix, brokenSuffix)
+				cache[input] = result
+				return result
 			}
 		}
 	}
@@ -39,21 +49,30 @@ func breakWord(input string, dictionary *hashsets.HashSet, cache map[string]stri
 
 // ExtractWords extracts all possible words
 func ExtractWords(input string, values []string) []string {
-	dictionary := hashsets.New(values...)
-	results := extractWords(input, dictionary, make(map[string]string))
-	return results.List()
+	dictionary := hashsets.New()
+	for _, value := range values {
+		dictionary.Add(value)
+	}
+
+	resultSet := extractWords(input, dictionary, make(map[string]string))
+
+	results := make([]string, 0)
+	for _, item := range resultSet.List() {
+		results = append(results, fmt.Sprintf(stringFormat, item))
+	}
+	return results
 }
 
 func extractWords(input string, dictionary *hashsets.HashSet, cache map[string]string) *hashsets.HashSet {
-	results := hashsets.New()
+	resultSet := hashsets.New()
 	if dictionary.Contains(input) {
-		results.Add(input)
+		resultSet.Add(input)
 	}
 
 	cachedValue, exists := cache[input]
 	if exists {
-		results.Add(cachedValue)
-		return results
+		resultSet.Add(cachedValue)
+		return resultSet
 	}
 
 	inputRunes := []rune(input)
@@ -63,10 +82,11 @@ func extractWords(input string, dictionary *hashsets.HashSet, cache map[string]s
 			suffix := string(inputRunes[i:])
 			brokenSuffixes := extractWords(suffix, dictionary, cache)
 			for _, brokenSuffix := range brokenSuffixes.List() {
-				cache[input] = prefix + " " + brokenSuffix
-				results.Add(prefix + " " + brokenSuffix)
+				result := fmt.Sprintf(stringSpaceStringFormat, prefix, brokenSuffix)
+				cache[input] = result
+				resultSet.Add(result)
 			}
 		}
 	}
-	return results
+	return resultSet
 }

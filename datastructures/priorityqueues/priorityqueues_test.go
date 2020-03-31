@@ -27,7 +27,7 @@ func TestMaxPriorityQueue(t *testing.T) {
 	_, err = priorityQueue.Peek()
 	assert.NotNil(t, err)
 
-	priorityQueue.Push(&PQElement{Value: "cool", Priority: 5})
+	priorityQueue.Push(&PQElement{Value: 5, Priority: 5})
 	assert.Equal(t, priorityQueue.IsEmpty(), false)
 	assert.Equal(t, priorityQueue.Size(), 1)
 
@@ -35,7 +35,7 @@ func TestMaxPriorityQueue(t *testing.T) {
 	assert.Equal(t, priorityQueue.IsEmpty(), false)
 	assert.Equal(t, priorityQueue.Size(), 2)
 
-	priorityQueue.Push(&PQElement{Value: "awesome", Priority: 1})
+	priorityQueue.Push(&PQElement{Value: true, Priority: 1})
 	assert.Equal(t, priorityQueue.IsEmpty(), false)
 	assert.Equal(t, priorityQueue.Size(), 3)
 
@@ -55,14 +55,14 @@ func TestMaxPriorityQueue(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, priorityQueue.IsEmpty(), false)
 	assert.Equal(t, priorityQueue.Size(), 1)
-	assert.Equal(t, element.Value, "cool")
+	assert.Equal(t, element.Value, 5)
 	assert.Equal(t, element.Priority, 5)
 
 	element, err = priorityQueue.Pop()
 	assert.Nil(t, err)
 	assert.Equal(t, priorityQueue.IsEmpty(), true)
 	assert.Equal(t, priorityQueue.Size(), 0)
-	assert.Equal(t, element.Value, "awesome")
+	assert.Equal(t, element.Value, true)
 	assert.Equal(t, element.Priority, 1)
 
 	_, err = priorityQueue.Pop()
@@ -90,7 +90,7 @@ func TestMinPriorityQueue(t *testing.T) {
 	_, err = priorityQueue.Peek()
 	assert.NotNil(t, err)
 
-	priorityQueue.Push(&PQElement{Value: "cool", Priority: 5})
+	priorityQueue.Push(&PQElement{Value: 5, Priority: 5})
 	assert.Equal(t, priorityQueue.IsEmpty(), false)
 	assert.Equal(t, priorityQueue.Size(), 1)
 
@@ -98,12 +98,12 @@ func TestMinPriorityQueue(t *testing.T) {
 	assert.Equal(t, priorityQueue.IsEmpty(), false)
 	assert.Equal(t, priorityQueue.Size(), 2)
 
-	priorityQueue.Push(&PQElement{Value: "awesome", Priority: 1})
+	priorityQueue.Push(&PQElement{Value: true, Priority: 1})
 	assert.Equal(t, priorityQueue.IsEmpty(), false)
 	assert.Equal(t, priorityQueue.Size(), 3)
 
 	element, err = priorityQueue.Peek()
-	assert.Equal(t, element.Value, "awesome")
+	assert.Equal(t, element.Value, true)
 	assert.Equal(t, element.Priority, 1)
 	assert.Nil(t, err)
 
@@ -111,14 +111,14 @@ func TestMinPriorityQueue(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, priorityQueue.IsEmpty(), false)
 	assert.Equal(t, priorityQueue.Size(), 2)
-	assert.Equal(t, element.Value, "awesome")
+	assert.Equal(t, element.Value, true)
 	assert.Equal(t, element.Priority, 1)
 
 	element, err = priorityQueue.Pop()
 	assert.Nil(t, err)
 	assert.Equal(t, priorityQueue.IsEmpty(), false)
 	assert.Equal(t, priorityQueue.Size(), 1)
-	assert.Equal(t, element.Value, "cool")
+	assert.Equal(t, element.Value, 5)
 	assert.Equal(t, element.Priority, 5)
 
 	element, err = priorityQueue.Pop()

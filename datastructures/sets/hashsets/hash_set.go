@@ -1,39 +1,39 @@
 package hashsets
 
 // New factory that creates a hash set
-func New(values ...string) *HashSet {
-	set := HashSet{data: make(map[string]struct{})}
+func New(values ...interface{}) *HashSet {
+	set := HashSet{data: make(map[interface{}]struct{})}
 	set.Add(values...)
 	return &set
 }
 
 // HashSet datastructure
 type HashSet struct {
-	data map[string]struct{}
+	data map[interface{}]struct{}
 }
 
 // Add adds values to the set
-func (s *HashSet) Add(values ...string) {
+func (s *HashSet) Add(values ...interface{}) {
 	for _, value := range values {
 		s.data[value] = struct{}{}
 	}
 }
 
 // Remove removes values from the set
-func (s *HashSet) Remove(values ...string) {
+func (s *HashSet) Remove(values ...interface{}) {
 	for _, value := range values {
 		delete(s.data, value)
 	}
 }
 
 // Contains checks if the value is in the set
-func (s *HashSet) Contains(value string) bool {
+func (s *HashSet) Contains(value interface{}) bool {
 	_, exists := s.data[value]
 	return exists
 }
 
 // ContainsAll checks if all values are in the set
-func (s *HashSet) ContainsAll(values ...string) bool {
+func (s *HashSet) ContainsAll(values ...interface{}) bool {
 	for _, value := range values {
 		_, exists := s.data[value]
 		if !exists {
@@ -44,7 +44,7 @@ func (s *HashSet) ContainsAll(values ...string) bool {
 }
 
 // ContainsAny checks if any of the values are in the set
-func (s *HashSet) ContainsAny(values ...string) bool {
+func (s *HashSet) ContainsAny(values ...interface{}) bool {
 	for _, value := range values {
 		_, exists := s.data[value]
 		if exists {
@@ -65,12 +65,12 @@ func (s *HashSet) Merge(sets ...*HashSet) {
 
 // Clear clears set
 func (s *HashSet) Clear() {
-	s.data = make(map[string]struct{})
+	s.data = make(map[interface{}]struct{})
 }
 
 // List returns values
-func (s *HashSet) List() []string {
-	values := make([]string, 0)
+func (s *HashSet) List() []interface{} {
+	values := make([]interface{}, 0)
 	for key := range s.data {
 		values = append(values, key)
 	}

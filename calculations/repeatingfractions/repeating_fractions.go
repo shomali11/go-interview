@@ -1,4 +1,4 @@
-package divisions
+package repeatingfractions
 
 import (
 	"bytes"

@@ -1,3 +1,23 @@
 # go-interview [![Build Status](https://travis-ci.com/shomali11/go-interview.svg?branch=master)](https://travis-ci.com/shomali11/go-interview) [![Go Report Card](https://goreportcard.com/badge/github.com/shomali11/go-interview)](https://goreportcard.com/report/github.com/shomali11/go-interview) [![GoDoc](https://godoc.org/github.com/shomali11/go-interview?status.svg)](https://godoc.org/github.com/shomali11/go-interview) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Collection of Technical Interview Questions solved with Go
+
+* [Calculations](https://github.com/shomali11/go-interview/tree/master/calculations)
+  * [Postfix](https://github.com/shomali11/go-interview/tree/master/calculations/postfixes)
+  * [Repeating Fractions](https://github.com/shomali11/go-interview/tree/master/calculations/repeatingfractions)
+* [Datastructures](https://github.com/shomali11/go-interview/tree/master/datastructures)
+  * [Linked Lists](https://github.com/shomali11/go-interview/tree/master/datastructures/linkedlists)
+  * [Priority Queues](https://github.com/shomali11/go-interview/tree/master/datastructures/priorityqueues)
+  * [Sets](https://github.com/shomali11/go-interview/tree/master/datastructures/sets)
+    * [Hash Multi Sets](https://github.com/shomali11/go-interview/tree/master/datastructures/sets/hashmultisets)
+    * [Hash Sets](https://github.com/shomali11/go-interview/tree/master/datastructures/sets/hashsets)
+  * [Stacks](https://github.com/shomali11/go-interview/tree/master/datastructures/stacks)
+* [Numbers](https://github.com/shomali11/go-interview/tree/master/numbers)
+  * [Base Conversions](https://github.com/shomali11/go-interview/tree/master/numbers/bases)
+  * [Perfect Number](https://github.com/shomali11/go-interview/tree/master/numbers/perfects)
+  * [Prime Number](https://github.com/shomali11/go-interview/tree/master/numbers/primes)
+* [Strings](https://github.com/shomali11/go-interview/tree/master/strings)
+  * [Add Binary Strings](https://github.com/shomali11/go-interview/tree/master/strings/addbinaries)
+  * [Palindrome Strings](https://github.com/shomali11/go-interview/tree/master/strings/palindromes)
+  * [Reverse String](https://github.com/shomali11/go-interview/tree/master/strings/reverses)
+  * [Break Words](https://github.com/shomali11/go-interview/tree/master/strings/wordbreakers)

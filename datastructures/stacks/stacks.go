@@ -4,16 +4,12 @@ import (
 	"errors"
 )
 
-const (
-	empty = ""
-)
-
 var (
 	errEmptyStack = errors.New("stack is empty")
 )
 
 // New factory to generate new stacks
-func New(values ...string) *Stack {
+func New(values ...interface{}) *Stack {
 	stack := Stack{}
 	stack.Push(values...)
 	return &stack
@@ -21,11 +17,11 @@ func New(values ...string) *Stack {
 
 // Stack stack structure
 type Stack struct {
-	array []string
+	array []interface{}
 }
 
 // Push add to the stack
-func (s *Stack) Push(values ...string) {
+func (s *Stack) Push(values ...interface{}) {
 	s.array = append(s.array, values...)
 }
 
@@ -45,9 +41,9 @@ func (s *Stack) Clear() {
 }
 
 // Pop remove from the stack
-func (s *Stack) Pop() (string, error) {
+func (s *Stack) Pop() (interface{}, error) {
 	if s.IsEmpty() {
-		return empty, errEmptyStack
+		return nil, errEmptyStack
 	}
 
 	value := s.array[len(s.array)-1]
@@ -56,9 +52,9 @@ func (s *Stack) Pop() (string, error) {
 }
 
 // Peek returns top of the stack
-func (s *Stack) Peek() (string, error) {
+func (s *Stack) Peek() (interface{}, error) {
 	if s.IsEmpty() {
-		return empty, errEmptyStack
+		return nil, errEmptyStack
 	}
 
 	value := s.array[len(s.array)-1]

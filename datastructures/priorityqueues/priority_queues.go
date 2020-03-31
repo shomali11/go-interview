@@ -11,7 +11,7 @@ var (
 
 // PQElement is an element in a priority queue.
 type PQElement struct {
-	Value    string
+	Value    interface{}
 	Priority int
 
 	// The index is needed by update and is maintained by the heap.Interface methods.
