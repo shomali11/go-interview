@@ -79,7 +79,7 @@ func (s *HashSet) List() []string {
 
 // IsEmpty checks if the set is empty
 func (s *HashSet) IsEmpty() bool {
-	return len(s.data) == 0
+	return s.Size() == 0
 }
 
 // Size returns size of the set

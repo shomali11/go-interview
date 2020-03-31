@@ -8,9 +8,13 @@ const (
 	empty = ""
 )
 
+var (
+	errEmptyStack = errors.New("stack is empty")
+)
+
 // New factory to generate new stacks
 func New(values ...string) *Stack {
-	stack := Stack{array: make([]string, 0)}
+	stack := Stack{}
 	stack.Push(values...)
 	return &stack
 }
@@ -22,14 +26,12 @@ type Stack struct {
 
 // Push add to the stack
 func (s *Stack) Push(values ...string) {
-	for _, value := range values {
-		s.array = append(s.array, value)
-	}
+	s.array = append(s.array, values...)
 }
 
 // IsEmpty checks if the stack is empty
 func (s *Stack) IsEmpty() bool {
-	return len(s.array) == 0
+	return s.Size() == 0
 }
 
 // Size returns size of the stack
@@ -39,13 +41,13 @@ func (s *Stack) Size() int {
 
 // Clear clears stack
 func (s *Stack) Clear() {
-	s.array = make([]string, 0)
+	s.array = nil
 }
 
 // Pop remove from the stack
 func (s *Stack) Pop() (string, error) {
-	if len(s.array) == 0 {
-		return empty, errors.New("stack is empty")
+	if s.IsEmpty() {
+		return empty, errEmptyStack
 	}
 
 	value := s.array[len(s.array)-1]
@@ -55,8 +57,8 @@ func (s *Stack) Pop() (string, error) {
 
 // Peek returns top of the stack
 func (s *Stack) Peek() (string, error) {
-	if len(s.array) == 0 {
-		return empty, errors.New("stack is empty")
+	if s.IsEmpty() {
+		return empty, errEmptyStack
 	}
 
 	value := s.array[len(s.array)-1]
