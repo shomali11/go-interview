@@ -17,6 +17,7 @@ Collection of Technical Interview Questions solved with Go
   * [Perfect Number](https://github.com/shomali11/go-interview/tree/master/numbers/perfects)
   * [Prime Number](https://github.com/shomali11/go-interview/tree/master/numbers/primes)
 * [Slices](https://github.com/shomali11/go-interview/tree/master/slices)
+  * [Duplicates](https://github.com/shomali11/go-interview/tree/master/slices/duplicates)
   * [Rotations](https://github.com/shomali11/go-interview/tree/master/slices/rotations)
     * [Count Rotations](https://github.com/shomali11/go-interview/tree/master/slices/rotations/countrotations)
     * [Minimum in Rotated Array](https://github.com/shomali11/go-interview/tree/master/slices/rotations/minrotations)
