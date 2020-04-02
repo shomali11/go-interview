@@ -5,6 +5,6 @@ Implement a Doubly Linked List. A doubly Linked List is a variation of Linked li
 ### Example:
 
 ```
-Input: Insert "value1", Insert "value2", Insert "value3", Remove Last 
-Output: ["value1", "value2"]
+Input: Insert "value1", Insert "value2", Insert "value3", Remove First 
+Output: ["value2", "value3"]
 ```
