@@ -59,7 +59,7 @@ func TestHashMultiSetTop(t *testing.T) {
 	set.IncrementBy("key1", 10)
 	set.IncrementBy("key2", 15)
 
-	pairs := set.Top()
+	pairs := set.GetTopValues()
 	assert.Equal(t, len(pairs), 2)
 
 	pair1 := pairs[0]

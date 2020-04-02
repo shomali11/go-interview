@@ -3,6 +3,9 @@
 Collection of Technical Interview Questions solved with Go
 
 * [Datastructures](https://github.com/shomali11/go-interview/tree/master/datastructures)
+  * [Linked Lists](https://github.com/shomali11/go-interview/tree/master/datastructures/linkedlists)
+    * [Doubly Linked List](https://github.com/shomali11/go-interview/tree/master/datastructures/linkedlists/doublylinkedlists)
+    * [Singly Linked List](https://github.com/shomali11/go-interview/tree/master/datastructures/linkedlists/singlylinkedlists)
   * [Priority Queues](https://github.com/shomali11/go-interview/tree/master/datastructures/priorityqueues)
   * [Queues](https://github.com/shomali11/go-interview/tree/master/datastructures/queues)
   * [Sets](https://github.com/shomali11/go-interview/tree/master/datastructures/sets)
@@ -12,6 +15,8 @@ Collection of Technical Interview Questions solved with Go
 * [Evaluations](https://github.com/shomali11/go-interview/tree/master/evaluations)
   * [Postfix](https://github.com/shomali11/go-interview/tree/master/evaluations/postfixes)
   * [Repeating Fractions](https://github.com/shomali11/go-interview/tree/master/evaluations/repeatingfractions)
+* [Lists](https://github.com/shomali11/go-interview/tree/master/lists)
+  * [Detect Cycle](https://github.com/shomali11/go-interview/tree/master/lists/detectcycles)
 * [Numbers](https://github.com/shomali11/go-interview/tree/master/numbers)
   * [Base Conversions](https://github.com/shomali11/go-interview/tree/master/numbers/bases)
   * [Perfect Number](https://github.com/shomali11/go-interview/tree/master/numbers/perfects)

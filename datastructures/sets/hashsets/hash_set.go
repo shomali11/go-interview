@@ -57,7 +57,7 @@ func (s *HashSet) ContainsAny(values ...interface{}) bool {
 // Merge the two sets
 func (s *HashSet) Merge(sets ...*HashSet) {
 	for _, set := range sets {
-		for _, value := range set.List() {
+		for _, value := range set.GetValues() {
 			s.Add(value)
 		}
 	}
@@ -68,8 +68,8 @@ func (s *HashSet) Clear() {
 	s.data = make(map[interface{}]struct{})
 }
 
-// List returns values
-func (s *HashSet) List() []interface{} {
+// GetValues returns values
+func (s *HashSet) GetValues() []interface{} {
 	values := make([]interface{}, 0)
 	for key := range s.data {
 		values = append(values, key)

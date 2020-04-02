@@ -62,3 +62,12 @@ func (s *Stack) Peek() (interface{}, error) {
 	value := s.array[s.Size()-1]
 	return value, nil
 }
+
+// GetValues returns values
+func (s *Stack) GetValues() []interface{} {
+	values := make([]interface{}, 0)
+	for _, value := range s.array {
+		values = append(values, value)
+	}
+	return values
+}

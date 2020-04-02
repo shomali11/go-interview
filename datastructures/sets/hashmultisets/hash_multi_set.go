@@ -106,8 +106,8 @@ func (s *HashMultiSet) Size() int {
 	return len(s.data)
 }
 
-// Top clears the set
-func (s *HashMultiSet) Top() []MultiSetPair {
+// GetTopValues returns values ordered in descending order
+func (s *HashMultiSet) GetTopValues() []MultiSetPair {
 	setPairs := make([]MultiSetPair, 0)
 	for key, count := range s.data {
 		setPairs = append(setPairs, MultiSetPair{Key: key, Count: count})

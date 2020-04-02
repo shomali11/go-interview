@@ -21,43 +21,52 @@ type Queue struct {
 }
 
 // Enqueue add to the Queue
-func (s *Queue) Enqueue(values ...interface{}) {
-	s.array = append(s.array, values...)
+func (q *Queue) Enqueue(values ...interface{}) {
+	q.array = append(q.array, values...)
 }
 
 // IsEmpty checks if the Queue is empty
-func (s *Queue) IsEmpty() bool {
-	return s.Size() == 0
+func (q *Queue) IsEmpty() bool {
+	return q.Size() == 0
 }
 
 // Size returns size of the Queue
-func (s *Queue) Size() int {
-	return len(s.array)
+func (q *Queue) Size() int {
+	return len(q.array)
 }
 
 // Clear clears Queue
-func (s *Queue) Clear() {
-	s.array = nil
+func (q *Queue) Clear() {
+	q.array = nil
 }
 
 // Dequeue remove from the Queue
-func (s *Queue) Dequeue() (interface{}, error) {
-	if s.IsEmpty() {
+func (q *Queue) Dequeue() (interface{}, error) {
+	if q.IsEmpty() {
 		return nil, errEmptyQueue
 	}
 
-	value := s.array[0]
-	s.array[0] = nil
-	s.array = s.array[1:]
+	value := q.array[0]
+	q.array[0] = nil
+	q.array = q.array[1:]
 	return value, nil
 }
 
 // Peek returns front of the Queue
-func (s *Queue) Peek() (interface{}, error) {
-	if s.IsEmpty() {
+func (q *Queue) Peek() (interface{}, error) {
+	if q.IsEmpty() {
 		return nil, errEmptyQueue
 	}
 
-	value := s.array[0]
+	value := q.array[0]
 	return value, nil
+}
+
+// GetValues returns values
+func (q *Queue) GetValues() []interface{} {
+	values := make([]interface{}, 0)
+	for _, value := range q.array {
+		values = append(values, value)
+	}
+	return values
 }

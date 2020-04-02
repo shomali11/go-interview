@@ -57,7 +57,7 @@ func ExtractWords(input string, values []string) []string {
 	resultSet := extractWords(input, dictionary, make(map[string]string))
 
 	results := make([]string, 0)
-	for _, item := range resultSet.List() {
+	for _, item := range resultSet.GetValues() {
 		results = append(results, fmt.Sprintf(stringFormat, item))
 	}
 	return results
@@ -81,7 +81,7 @@ func extractWords(input string, dictionary *hashsets.HashSet, cache map[string]s
 		if dictionary.Contains(prefix) {
 			suffix := string(inputRunes[i:])
 			brokenSuffixes := extractWords(suffix, dictionary, cache)
-			for _, brokenSuffix := range brokenSuffixes.List() {
+			for _, brokenSuffix := range brokenSuffixes.GetValues() {
 				result := fmt.Sprintf(stringSpaceStringFormat, prefix, brokenSuffix)
 				cache[input] = result
 				resultSet.Add(result)
