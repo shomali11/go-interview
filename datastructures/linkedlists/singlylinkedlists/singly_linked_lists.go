@@ -119,9 +119,9 @@ func (s *SinglyLinkedList) InsertAt(index int, value interface{}) error {
 		return nil
 	}
 
-	current := s.head
-	for i := 0; i < index-1; i++ {
-		current = current.Next
+	current, err := s.getNode(index - 1)
+	if err != nil {
+		return err
 	}
 
 	element.Next = current.Next
@@ -134,12 +134,8 @@ func (s *SinglyLinkedList) InsertAt(index int, value interface{}) error {
 
 // RemoveAt remove value from the list at specific index
 func (s *SinglyLinkedList) RemoveAt(index int) (interface{}, error) {
-	if index < 0 || index > s.count {
+	if index < 0 || index >= s.count {
 		return nil, errIndexOutOfBounds
-	}
-
-	if s.IsEmpty() {
-		return nil, errEmptyList
 	}
 
 	if s.count == 1 {
@@ -152,7 +148,7 @@ func (s *SinglyLinkedList) RemoveAt(index int) (interface{}, error) {
 
 	if index == 0 {
 		current := s.head
-		s.head.Next = current.Next
+		s.head = current.Next
 		current.Next = nil
 		value := current.Value
 		s.count--
@@ -160,19 +156,28 @@ func (s *SinglyLinkedList) RemoveAt(index int) (interface{}, error) {
 		return value, nil
 	}
 
-	current := s.head
-	for i := 0; i < index-1; i++ {
-		current = current.Next
+	current, err := s.getNode(index - 1)
+	if err != nil {
+		return nil, err
 	}
 
 	value := current.Next.Value
 	current.Next = current.Next.Next
-	if index == s.count {
+	if index == s.count-1 {
 		s.tail = current
 	}
 	s.count--
 	current = nil
 	return value, nil
+}
+
+// GetValueAt returns value at a specific index in the list
+func (s *SinglyLinkedList) GetValueAt(index int) (interface{}, error) {
+	current, err := s.getNode(index)
+	if err != nil {
+		return nil, err
+	}
+	return current.Value, nil
 }
 
 // GetFirstValue returns first value in the list
@@ -194,4 +199,16 @@ func (s *SinglyLinkedList) GetLastValue() (interface{}, error) {
 // GetHead returns head node of the list
 func (s *SinglyLinkedList) GetHead() *SLLNode {
 	return s.head
+}
+
+func (s *SinglyLinkedList) getNode(index int) (*SLLNode, error) {
+	if index < 0 || index >= s.count {
+		return nil, errIndexOutOfBounds
+	}
+
+	current := s.head
+	for i := 0; i < index; i++ {
+		current = current.Next
+	}
+	return current, nil
 }

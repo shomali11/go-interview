@@ -19,7 +19,19 @@ func TestBreakWord(t *testing.T) {
 }
 
 func TestExtractWords(t *testing.T) {
-	assert.True(t, reflect.DeepEqual(ExtractWords("applet", dictionary), []string{"applet", "app let", "apple t"}))
+	values := ExtractWords("applet", dictionary)
+	assert.True(t, contains(values, "applet"))
+	assert.True(t, contains(values, "app let"))
+	assert.True(t, contains(values, "apple t"))
 	assert.True(t, reflect.DeepEqual(ExtractWords("apples", dictionary), []string{}))
 	assert.True(t, reflect.DeepEqual(ExtractWords("boo", dictionary), []string{}))
+}
+
+func contains(values []string, value string) bool {
+	for _, v := range values {
+		if v == value {
+			return true
+		}
+	}
+	return false
 }

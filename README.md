@@ -17,6 +17,7 @@ Collection of Technical Interview Questions solved with Go
   * [Repeating Fractions](https://github.com/shomali11/go-interview/tree/master/evaluations/repeatingfractions)
 * [Lists](https://github.com/shomali11/go-interview/tree/master/lists)
   * [Detect Cycle](https://github.com/shomali11/go-interview/tree/master/lists/detectcycles)
+  * [Reverse Singly Linked List](https://github.com/shomali11/go-interview/tree/master/lists/reverses)
 * [Numbers](https://github.com/shomali11/go-interview/tree/master/numbers)
   * [Base Conversions](https://github.com/shomali11/go-interview/tree/master/numbers/bases)
   * [Perfect Number](https://github.com/shomali11/go-interview/tree/master/numbers/perfects)
