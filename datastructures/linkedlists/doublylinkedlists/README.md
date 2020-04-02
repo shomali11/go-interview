@@ -1,6 +1,6 @@
 ### Description
 
-Implement a Doubly Linked List. A doubly Linked List is a variation of Linked list in which navigation is possible in both ways, either forward and backward easily as compared to Singly Linked List.
+Implement a Doubly Linked List. A doubly Linked List is a variation of Linked list in which navigation is possible in both ways, either forward and backward easily as compared to singly linked list.
 
 ### Example:
 
