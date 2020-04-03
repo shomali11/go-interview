@@ -5,7 +5,7 @@ import (
 	"math"
 	"strings"
 
-	"github.com/shomali11/go-interview/strings/reverses"
+	"github.com/shomali11/go-interview/strings/reverses/reversestrings"
 )
 
 const (
@@ -21,7 +21,7 @@ func Encode(number int, base int) string {
 		buffer.WriteString(string(codes[remainder]))
 		number /= base
 	}
-	return reverses.Reverse(buffer.String())
+	return reversestrings.ReverseString(buffer.String())
 }
 
 // Decode converts a number of a specific base

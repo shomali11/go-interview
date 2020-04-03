@@ -35,5 +35,7 @@ Collection of Technical Interview Questions solved with Go
 * [Strings](https://github.com/shomali11/go-interview/tree/master/strings)
   * [Add Binary Strings](https://github.com/shomali11/go-interview/tree/master/strings/addbinaries)
   * [Palindrome Strings](https://github.com/shomali11/go-interview/tree/master/strings/palindromes)
-  * [Reverse String](https://github.com/shomali11/go-interview/tree/master/strings/reverses)
+  * [Reverses](https://github.com/shomali11/go-interview/tree/master/strings/reverses)
+    * [Reverse Sentences](https://github.com/shomali11/go-interview/tree/master/strings/reverses/reversesentences)
+    * [Reverse Strings](https://github.com/shomali11/go-interview/tree/master/strings/reverses/reversestrings)
   * [Break Words](https://github.com/shomali11/go-interview/tree/master/strings/wordbreakers)

@@ -1,4 +1,4 @@
-package reverses
+package reversestrings
 
 import (
 	"testing"
@@ -7,5 +7,5 @@ import (
 )
 
 func TestReverse(t *testing.T) {
-	assert.Equal(t, Reverse("hello"), "olleh")
+	assert.Equal(t, ReverseString("hello"), "olleh")
 }
