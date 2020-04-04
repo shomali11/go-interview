@@ -21,6 +21,7 @@ Collection of Technical Interview Questions solved with Go
   * [Reverse List](https://github.com/shomali11/go-interview/tree/master/lists/reverses)
 * [Numbers](https://github.com/shomali11/go-interview/tree/master/numbers)
   * [Base Conversions](https://github.com/shomali11/go-interview/tree/master/numbers/bases)
+  * [Excel Column Conversions](https://github.com/shomali11/go-interview/tree/master/numbers/excels)
   * [Perfect Number](https://github.com/shomali11/go-interview/tree/master/numbers/perfects)
   * [Prime Number](https://github.com/shomali11/go-interview/tree/master/numbers/primes)
 * [Slices](https://github.com/shomali11/go-interview/tree/master/slices)
