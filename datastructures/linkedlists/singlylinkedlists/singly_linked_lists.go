@@ -56,7 +56,7 @@ func (s *SinglyLinkedList) Clear() {
 
 // GetValues returns values
 func (s *SinglyLinkedList) GetValues() []interface{} {
-	values := make([]interface{}, 0)
+	values := make([]interface{}, 0, s.Size())
 	current := s.head
 	for current != nil {
 		values = append(values, current.Value)

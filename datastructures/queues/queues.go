@@ -10,7 +10,7 @@ var (
 
 // New factory to generate new Queues
 func New(values ...interface{}) *Queue {
-	Queue := Queue{}
+	Queue := Queue{make([]interface{}, 0, len(values))}
 	Queue.Enqueue(values...)
 	return &Queue
 }
@@ -64,7 +64,7 @@ func (q *Queue) Peek() (interface{}, error) {
 
 // GetValues returns values
 func (q *Queue) GetValues() []interface{} {
-	values := make([]interface{}, 0)
+	values := make([]interface{}, 0, q.Size())
 	for _, value := range q.array {
 		values = append(values, value)
 	}
