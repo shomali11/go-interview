@@ -10,7 +10,7 @@ var (
 
 // New factory to generate new stacks
 func New(values ...interface{}) *Stack {
-	stack := Stack{}
+	stack := Stack{make([]interface{}, 0, len(values))}
 	stack.Push(values...)
 	return &stack
 }
@@ -65,7 +65,7 @@ func (s *Stack) Peek() (interface{}, error) {
 
 // GetValues returns values
 func (s *Stack) GetValues() []interface{} {
-	values := make([]interface{}, 0)
+	values := make([]interface{}, 0, s.Size())
 	for _, value := range s.array {
 		values = append(values, value)
 	}

@@ -2,7 +2,7 @@ package hashsets
 
 // New factory that creates a hash set
 func New(values ...interface{}) *HashSet {
-	set := HashSet{data: make(map[interface{}]struct{})}
+	set := HashSet{data: make(map[interface{}]struct{}, len(values))}
 	set.Add(values...)
 	return &set
 }
@@ -35,8 +35,7 @@ func (s *HashSet) Contains(value interface{}) bool {
 // ContainsAll checks if all values are in the set
 func (s *HashSet) ContainsAll(values ...interface{}) bool {
 	for _, value := range values {
-		_, exists := s.data[value]
-		if !exists {
+		if !s.Contains(value) {
 			return false
 		}
 	}
@@ -46,8 +45,7 @@ func (s *HashSet) ContainsAll(values ...interface{}) bool {
 // ContainsAny checks if any of the values are in the set
 func (s *HashSet) ContainsAny(values ...interface{}) bool {
 	for _, value := range values {
-		_, exists := s.data[value]
-		if exists {
+		if s.Contains(value) {
 			return true
 		}
 	}
@@ -70,7 +68,7 @@ func (s *HashSet) Clear() {
 
 // GetValues returns values
 func (s *HashSet) GetValues() []interface{} {
-	values := make([]interface{}, 0)
+	values := make([]interface{}, 0, s.Size())
 	for key := range s.data {
 		values = append(values, key)
 	}
