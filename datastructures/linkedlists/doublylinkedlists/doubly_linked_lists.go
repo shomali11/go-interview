@@ -58,7 +58,7 @@ func (s *DoublyLinkedList) Clear() {
 
 // GetValues returns values from head to tail
 func (s *DoublyLinkedList) GetValues() []interface{} {
-	values := make([]interface{}, 0)
+	values := make([]interface{}, 0, s.Size())
 	current := s.head
 	for current != nil {
 		values = append(values, current.Value)
@@ -70,7 +70,7 @@ func (s *DoublyLinkedList) GetValues() []interface{} {
 
 // GetReverseValues returns values from tail to head
 func (s *DoublyLinkedList) GetReverseValues() []interface{} {
-	values := make([]interface{}, 0)
+	values := make([]interface{}, 0, s.Size())
 	current := s.tail
 	for current != nil {
 		values = append(values, current.Value)

@@ -4,7 +4,7 @@ import "sort"
 
 // New factory that creates a new Hash Multi Set
 func New(values ...interface{}) *HashMultiSet {
-	set := HashMultiSet{data: make(map[interface{}]int)}
+	set := HashMultiSet{data: make(map[interface{}]int, len(values))}
 	set.Add(values...)
 	return &set
 }
@@ -44,7 +44,7 @@ func (s *HashMultiSet) IncrementBy(value interface{}, count int) {
 
 // GetValues returns a list of the set's values
 func (s *HashMultiSet) GetValues() []interface{} {
-	values := make([]interface{}, 0)
+	values := make([]interface{}, 0, s.Size())
 	for key := range s.data {
 		values = append(values, key)
 	}
@@ -60,8 +60,7 @@ func (s *HashMultiSet) Contains(value interface{}) bool {
 // ContainsAll checks if all values are in the set
 func (s *HashMultiSet) ContainsAll(values ...interface{}) bool {
 	for _, value := range values {
-		_, exists := s.data[value]
-		if !exists {
+		if !s.Contains(value) {
 			return false
 		}
 	}
@@ -71,8 +70,7 @@ func (s *HashMultiSet) ContainsAll(values ...interface{}) bool {
 // ContainsAny checks if any values are in the set
 func (s *HashMultiSet) ContainsAny(values ...interface{}) bool {
 	for _, value := range values {
-		_, exists := s.data[value]
-		if exists {
+		if s.Contains(value) {
 			return true
 		}
 	}
@@ -108,7 +106,7 @@ func (s *HashMultiSet) Size() int {
 
 // GetTopValues returns values ordered in descending order
 func (s *HashMultiSet) GetTopValues() []MultiSetPair {
-	setPairs := make([]MultiSetPair, 0)
+	setPairs := make([]MultiSetPair, 0, s.Size())
 	for key, count := range s.data {
 		setPairs = append(setPairs, MultiSetPair{Key: key, Count: count})
 	}
