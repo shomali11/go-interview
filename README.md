@@ -2,10 +2,14 @@
 
 Collection of Technical Interview Questions solved with Go
 
+* [Algorithms](https://github.com/shomali11/go-interview/tree/master/algorithms)
+  * [A Star](https://github.com/shomali11/go-interview/tree/master/algorithms/astar)
 * [Datastructures](https://github.com/shomali11/go-interview/tree/master/datastructures)
   * [Linked Lists](https://github.com/shomali11/go-interview/tree/master/datastructures/linkedlists)
     * [Doubly Linked List](https://github.com/shomali11/go-interview/tree/master/datastructures/linkedlists/doublylinkedlists)
     * [Singly Linked List](https://github.com/shomali11/go-interview/tree/master/datastructures/linkedlists/singlylinkedlists)
+  * [Maps](https://github.com/shomali11/go-interview/tree/master/datastructures/maps)
+    * [Hash Multi Maps](https://github.com/shomali11/go-interview/tree/master/datastructures/maps/hashmultimaps)
   * [Priority Queues](https://github.com/shomali11/go-interview/tree/master/datastructures/priorityqueues)
   * [Queues](https://github.com/shomali11/go-interview/tree/master/datastructures/queues)
   * [Sets](https://github.com/shomali11/go-interview/tree/master/datastructures/sets)

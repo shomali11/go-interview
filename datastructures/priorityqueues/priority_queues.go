@@ -3,48 +3,53 @@ package priorityqueues
 import (
 	"container/heap"
 	"errors"
+
+	"github.com/shomali11/go-interview/datastructures/maps/hashmultimaps"
 )
 
 var (
 	errEmptyQueue = errors.New("queue is empty")
 )
 
-// PQElement is an element in a priority queue.
-type PQElement struct {
-	Value    interface{}
-	Priority int
-
-	// The index is needed by update and is maintained by the heap.Interface methods.
-	index int // The index of the item in the heap.
-}
-
-// NewMax factory to generate new max priority queues
-func NewMax(elements ...*PQElement) *PriorityQueue {
-	return New(true, elements...)
-}
-
-// NewMin factory to generate new min priority queues
-func NewMin(elements ...*PQElement) *PriorityQueue {
-	return New(false, elements...)
-}
-
 // New factory to generate new priority queues
-func New(max bool, elements ...*PQElement) *PriorityQueue {
-	priorityQueue := PriorityQueue{pq: &heapArray{max: max}}
+func New(compare func(i, j interface{}) bool, values ...interface{}) *PriorityQueue {
+	priorityQueue := PriorityQueue{pq: &heapArray{compare: compare}, multiMap: hashmultimaps.New()}
 	heap.Init(priorityQueue.pq)
-	priorityQueue.Push(elements...)
+	priorityQueue.Push(values...)
 	return &priorityQueue
 }
 
 // PriorityQueue Priority Queue structure
 type PriorityQueue struct {
-	pq *heapArray
+	pq       *heapArray
+	multiMap *hashmultimaps.HashMultiMap
 }
 
 // Push pushes to the Priority Queue
-func (s *PriorityQueue) Push(elements ...*PQElement) {
-	for _, element := range elements {
+func (s *PriorityQueue) Push(values ...interface{}) {
+	for _, value := range values {
+		element := &pqElement{value: value}
 		heap.Push(s.pq, element)
+		s.multiMap.Put(value, element)
+	}
+}
+
+// Contains checks if the value exists in the Priority Queue
+func (s *PriorityQueue) Contains(value interface{}) bool {
+	return s.multiMap.Contains(value)
+}
+
+// Remove removes from the Priority Queue
+func (s *PriorityQueue) Remove(values ...interface{}) {
+	for _, value := range values {
+		elements := s.multiMap.GetValues(value)
+		if len(elements) == 0 {
+			continue
+		}
+
+		element := elements[0].(*pqElement)
+		heap.Remove(s.pq, element.index)
+		s.multiMap.Remove(value, element)
 	}
 }
 
@@ -64,21 +69,21 @@ func (s *PriorityQueue) Clear() {
 }
 
 // Pop removes from the Priority Queue
-func (s *PriorityQueue) Pop() (*PQElement, error) {
+func (s *PriorityQueue) Pop() (interface{}, error) {
 	if s.IsEmpty() {
 		return nil, errEmptyQueue
 	}
 
-	element := heap.Pop(s.pq).(*PQElement)
-	return element, nil
+	element := heap.Pop(s.pq).(*pqElement)
+	return element.value, nil
 }
 
 // Peek returns top of the Priority Queue
-func (s *PriorityQueue) Peek() (*PQElement, error) {
+func (s *PriorityQueue) Peek() (interface{}, error) {
 	if s.IsEmpty() {
 		return nil, errEmptyQueue
 	}
 
 	element := s.pq.array[0]
-	return element, nil
+	return element.value, nil
 }

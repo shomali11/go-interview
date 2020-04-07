@@ -23,7 +23,7 @@ type HashMultiSet struct {
 // Merge merge multiple sets
 func (s *HashMultiSet) Merge(sets ...*HashMultiSet) {
 	for _, set := range sets {
-		for _, value := range set.List() {
+		for _, value := range set.GetValues() {
 			s.IncrementBy(value, set.GetCount(value))
 		}
 	}
@@ -42,8 +42,8 @@ func (s *HashMultiSet) IncrementBy(value interface{}, count int) {
 	s.data[value] = existingCount + count
 }
 
-// List returns a list of the set's values
-func (s *HashMultiSet) List() []interface{} {
+// GetValues returns a list of the set's values
+func (s *HashMultiSet) GetValues() []interface{} {
 	values := make([]interface{}, 0)
 	for key := range s.data {
 		values = append(values, key)

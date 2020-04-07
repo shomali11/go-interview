@@ -17,7 +17,7 @@ func TestHashMultiSet(t *testing.T) {
 	assert.Equal(t, set.ContainsAll("hello", "unknown"), false)
 	assert.Equal(t, set.ContainsAny("hello", "unknown"), true)
 	assert.Equal(t, set.Size(), 1)
-	assert.Equal(t, set.List()[0], "hello")
+	assert.Equal(t, set.GetValues()[0], "hello")
 
 	set.Clear()
 	assert.Equal(t, set.Size(), 0)
@@ -28,7 +28,7 @@ func TestHashMultiSet(t *testing.T) {
 	assert.Equal(t, set.ContainsAny(111), true)
 	assert.Equal(t, set.GetCount(111), 1)
 	assert.Equal(t, set.Size(), 1)
-	assert.Equal(t, set.List()[0], 111)
+	assert.Equal(t, set.GetValues()[0], 111)
 
 	set.Remove(111)
 	assert.Equal(t, set.Size(), 0)
