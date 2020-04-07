@@ -40,7 +40,7 @@ func (s *HashMultiMap) PutAll(key interface{}, values ...interface{}) {
 
 // GetKeys returns a list of the multi map's keys
 func (s *HashMultiMap) GetKeys() []interface{} {
-	keys := make([]interface{}, 0)
+	keys := make([]interface{}, 0, s.Size())
 	for key := range s.data {
 		keys = append(keys, key)
 	}
@@ -56,8 +56,7 @@ func (s *HashMultiMap) Contains(key interface{}) bool {
 // ContainsAll checks if all keys are in the multi map
 func (s *HashMultiMap) ContainsAll(keys ...interface{}) bool {
 	for _, key := range keys {
-		_, exists := s.data[key]
-		if !exists {
+		if !s.Contains(key) {
 			return false
 		}
 	}
@@ -67,8 +66,7 @@ func (s *HashMultiMap) ContainsAll(keys ...interface{}) bool {
 // ContainsAny checks if any keys are in the multi map
 func (s *HashMultiMap) ContainsAny(keys ...interface{}) bool {
 	for _, key := range keys {
-		_, exists := s.data[key]
-		if exists {
+		if s.Contains(key) {
 			return true
 		}
 	}
