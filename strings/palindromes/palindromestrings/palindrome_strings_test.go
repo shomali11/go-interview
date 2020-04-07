@@ -1,4 +1,4 @@
-package palindromes
+package palindromestrings
 
 import (
 	"testing"

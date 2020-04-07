@@ -1,4 +1,4 @@
-package palindromes
+package palindromestrings
 
 // IsPalindrome determines if the input is a palindrome
 func IsPalindrome(text string) bool {
