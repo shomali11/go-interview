@@ -34,4 +34,4 @@ Distance: 15.313708498984763
 
 ![Result](grids/output.png)
 
-*Generated using https://github.com/shomali11/gridder*
+*Image generated using https://github.com/shomali11/gridder*
