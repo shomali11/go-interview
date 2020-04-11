@@ -14,8 +14,8 @@ func TestHashSet(t *testing.T) {
 
 	assert.Equal(t, set.Contains("hello"), true)
 	assert.Equal(t, set.Contains("unknown"), false)
-	assert.Equal(t, set.ContainsAll("hello" , "unknown"), false)
-	assert.Equal(t, set.ContainsAny("hello" , "unknown"), true)
+	assert.Equal(t, set.ContainsAll("hello", "unknown"), false)
+	assert.Equal(t, set.ContainsAny("hello", "unknown"), true)
 	assert.Equal(t, set.IsEmpty(), false)
 	assert.Equal(t, set.Size(), 1)
 	assert.Equal(t, set.GetValues()[0], "hello")

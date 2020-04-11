@@ -28,4 +28,6 @@ func TestSearch(t *testing.T) {
 	fmt.Println()
 
 	world.PrintGrid(path)
+
+	createImage(rows, columns, start, goal, path, world)
 }

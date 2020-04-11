@@ -8,7 +8,7 @@ import (
 
 func TestRunningAverage(t *testing.T) {
 	runningAverage := RunningAverage{}
-	
+
 	runningAverage.Add(1)
 	assert.Equal(t, runningAverage.GetAverage(), float64(1))
 	assert.Equal(t, runningAverage.GetSum(), 1)
