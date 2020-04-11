@@ -97,14 +97,14 @@ func (s *DoublyLinkedList) GetIndexOf(value interface{}) int {
 
 // GetLastIndexOf returns the index of the last occurence
 func (s *DoublyLinkedList) GetLastIndexOf(value interface{}) int {
-	index := 0
+	index := s.Size() - 1
 	current := s.tail
 	for current != nil {
 		if value == current.Value {
 			return index
 		}
 		current = current.Previous
-		index++
+		index--
 	}
 	current = nil
 	return -1
