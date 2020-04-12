@@ -84,3 +84,53 @@ func (s *HashSet) IsEmpty() bool {
 func (s *HashSet) Size() int {
 	return len(s.data)
 }
+
+// Common set functions
+
+// Make an identical copy of the set
+func (s *HashSet) Copy() *HashSet {
+	return New(s.GetValues()...)
+}
+
+// Make a set that has all the elements in two sets
+func (s *HashSet) Union(ss *HashSet) *HashSet {
+	new := s.Copy()
+	new.Merge(ss)
+	return new
+}
+
+// Make a set that has only the elements in both of two sets
+func (s *HashSet) Intersection(ss *HashSet) *HashSet {
+	new := s.Copy()
+	for _, v := range new.GetValues() {
+		if !ss.Contains(v) {
+			new.Remove(v)
+		}
+	}
+	return new
+}
+
+// Make a set that has elements in one of two sets, but not both
+func (s *HashSet) SymmetricDifference(ss *HashSet) *HashSet {
+	new := &HashSet{make(map[interface{}]struct{}, s.Size())}
+	for _, v := range s.GetValues() {
+		if !ss.Contains(v) {
+			new.Add(v)
+		}
+	}
+	for _, v := range ss.GetValues() {
+		if !s.Contains(v) {
+			new.Add(v)
+		}
+	}
+	return new
+}
+
+// Make a set with the elements that are in the first set, but not the second
+func (s *HashSet) Subtraction(ss *HashSet) *HashSet {
+	new := s.Copy()
+	for _, v := range ss.GetValues() {
+		new.Remove(v)
+	}
+	return new
+}
