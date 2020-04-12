@@ -92,14 +92,14 @@ func (s *HashSet) Copy() *HashSet {
 	return New(s.GetValues()...)
 }
 
-// Make a set that has all the elements in two sets
+// Make a set that has all of the elements in either of two sets
 func (s *HashSet) Union(ss *HashSet) *HashSet {
 	new := s.Copy()
 	new.Merge(ss)
 	return new
 }
 
-// Make a set that has only the elements in both of two sets
+// Make a set that has only the elements common to both of two sets
 func (s *HashSet) Intersection(ss *HashSet) *HashSet {
 	new := s.Copy()
 	for _, v := range new.GetValues() {
@@ -110,7 +110,7 @@ func (s *HashSet) Intersection(ss *HashSet) *HashSet {
 	return new
 }
 
-// Make a set that has elements in one of two sets, but not both
+// Make a set that has elements that are in one of two sets, but not both
 func (s *HashSet) SymmetricDifference(ss *HashSet) *HashSet {
 	new := &HashSet{make(map[interface{}]struct{}, s.Size())}
 	for _, v := range s.GetValues() {
