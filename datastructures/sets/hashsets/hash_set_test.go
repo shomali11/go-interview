@@ -1,9 +1,8 @@
 package hashsets
 
 import (
-	"testing"
-
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestHashSet(t *testing.T) {
@@ -49,4 +48,52 @@ func TestHashSetMerge(t *testing.T) {
 
 	assert.Equal(t, set3.Size(), 3)
 	assert.Equal(t, set3.ContainsAll("hello", "cool", "sweet"), true)
+}
+
+func TestHashSetCopy(t *testing.T) {
+	set1 := New()
+	set1.Add("a", "b", "c")
+	set2 := set1.Copy()
+	assert.Equal(t, set2.Size(), 3)
+	assert.Equal(t, set2.ContainsAll("a", "b", "c"), true)
+}
+
+func TestHashSetUnion(t *testing.T) {
+	set1 := New()
+	set1.Add("a", "b")
+	set2 := New()
+	set2.Add("c", "d")
+	set3 := set1.Union(set2)
+	assert.Equal(t, set3.Size(), 4)
+	assert.Equal(t, set3.ContainsAll("a", "b", "c", "d"), true)
+}
+
+func TestHashSetIntersection(t *testing.T) {
+	set1 := New()
+	set1.Add("a", "b", "c", "d", "e")
+	set2 := New()
+	set2.Add("c", "d", "e", "f", "g")
+	set3 := set1.Intersection(set2)
+	assert.Equal(t, set3.Size(), 3)
+	assert.Equal(t, set3.ContainsAll("c", "d", "e"), true)
+}
+
+func TestHashSetSymmetricDifference(t *testing.T) {
+	set1 := New()
+	set1.Add("a", "b", "c", "d", "e")
+	set2 := New()
+	set2.Add("c", "d", "e", "f", "g")
+	set3 := set1.SymmetricDifference(set2)
+	assert.Equal(t, set3.Size(), 4)
+	assert.Equal(t, set3.ContainsAll("a", "b", "f", "g"), true)
+}
+
+func TestHashSetSubtraction(t *testing.T) {
+	set1 := New()
+	set1.Add("a", "b", "c", "d", "e")
+	set2 := New()
+	set2.Add("c", "d", "e", "f", "g")
+	set3 := set1.Subtraction(set2)
+	assert.Equal(t, set3.Size(), 2)
+	assert.Equal(t, set3.ContainsAll("a", "b"), true)
 }
