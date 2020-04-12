@@ -10,6 +10,7 @@ Collection of Technical Interview Questions solved with Go
     * [Singly Linked List](https://github.com/shomali11/go-interview/tree/master/datastructures/linkedlists/singlylinkedlists)
   * [Maps](https://github.com/shomali11/go-interview/tree/master/datastructures/maps)
     * [Hash Multi Maps](https://github.com/shomali11/go-interview/tree/master/datastructures/maps/hashmultimaps)
+    * [LRU Caches](https://github.com/shomali11/go-interview/tree/master/datastructures/maps/lrucaches)
   * [Priority Queues](https://github.com/shomali11/go-interview/tree/master/datastructures/priorityqueues)
   * [Queues](https://github.com/shomali11/go-interview/tree/master/datastructures/queues)
   * [Sets](https://github.com/shomali11/go-interview/tree/master/datastructures/sets)
