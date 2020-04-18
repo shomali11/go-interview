@@ -31,6 +31,7 @@ Collection of Technical Interview Questions solved with Go
   * [Excel Column Conversions](https://github.com/shomali11/go-interview/tree/master/numbers/excels)
   * [Leap Years](https://github.com/shomali11/go-interview/tree/master/numbers/leapyears)
   * [Perfect Number](https://github.com/shomali11/go-interview/tree/master/numbers/perfects)
+  * [Power](https://github.com/shomali11/go-interview/tree/master/numbers/powers)
   * [Prime Number](https://github.com/shomali11/go-interview/tree/master/numbers/primes)
 * [Slices](https://github.com/shomali11/go-interview/tree/master/slices)
   * [Duplicates](https://github.com/shomali11/go-interview/tree/master/slices/duplicates)
