@@ -25,6 +25,7 @@ Collection of Technical Interview Questions solved with Go
   * [Detect Intersection](https://github.com/shomali11/go-interview/tree/master/lists/detectintersections)
   * [Reverse List](https://github.com/shomali11/go-interview/tree/master/lists/reverses)
 * [Numbers](https://github.com/shomali11/go-interview/tree/master/numbers)
+  * [Armstrong Number](https://github.com/shomali11/go-interview/tree/master/numbers/armstrongs)
   * [Base Conversions](https://github.com/shomali11/go-interview/tree/master/numbers/bases)
   * [Count Digits](https://github.com/shomali11/go-interview/tree/master/numbers/countdigits)
   * [Excel Column Conversions](https://github.com/shomali11/go-interview/tree/master/numbers/excels)
