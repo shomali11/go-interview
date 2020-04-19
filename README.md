@@ -37,6 +37,8 @@ Collection of Technical Interview Questions solved with Go
   * [Power Function](https://github.com/shomali11/go-interview/tree/master/numbers/powers)
   * [Prime Number](https://github.com/shomali11/go-interview/tree/master/numbers/primes)
   * [Reverse](https://github.com/shomali11/go-interview/tree/master/numbers/reverses)
+* [Stacks](https://github.com/shomali11/go-interview/tree/master/stacks)
+  * [Balanced Parantheses](https://github.com/shomali11/go-interview/tree/master/stacks/balancedparantheses)
 * [Slices](https://github.com/shomali11/go-interview/tree/master/slices)
   * [Duplicates](https://github.com/shomali11/go-interview/tree/master/slices/duplicates)
   * [Rotations](https://github.com/shomali11/go-interview/tree/master/slices/rotations)
