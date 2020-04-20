@@ -60,6 +60,7 @@ Collection of Technical Interview Questions solved with Go
   * [Sort](https://github.com/shomali11/go-interview/tree/master/strings/sorts)
   * [Break Words](https://github.com/shomali11/go-interview/tree/master/strings/wordbreakers)
 * [Trees](https://github.com/shomali11/go-interview/tree/master/trees)
+  * [Invert Binary Trees](https://github.com/shomali11/go-interview/tree/master/trees/inverttrees)
   * [Longest Distinct Paths](https://github.com/shomali11/go-interview/tree/master/trees/longestdistinctpaths)
   * [Print By Columns](https://github.com/shomali11/go-interview/tree/master/trees/printcolumns)
   * [Print By Levels](https://github.com/shomali11/go-interview/tree/master/trees/printlevels)
