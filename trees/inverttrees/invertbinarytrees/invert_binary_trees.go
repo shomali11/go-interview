@@ -1,4 +1,4 @@
-package inverttrees
+package invertbinarytrees
 
 import "github.com/shomali11/go-interview/datastructures/trees"
 
@@ -8,7 +8,6 @@ func InvertTree(node *trees.BinaryNode) *trees.BinaryNode {
 		return nil
 	}
 
-	node.Left = InvertTree(node.Right)
-	node.Right = InvertTree(node.Left)
+	node.Left, node.Right = InvertTree(node.Right), InvertTree(node.Left)
 	return node
 }
