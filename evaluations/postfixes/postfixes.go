@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/shomali11/go-interview/datastructures/stacks"
+	"github.com/shomali11/go-interview/datastructures/stacks/slicestacks"
 )
 
 var (
@@ -14,7 +14,7 @@ var (
 
 // Evaluate evaluates postfix expressions
 func Evaluate(expression string) (float64, error) {
-	stack := stacks.New()
+	stack := slicestacks.New()
 	tokens := strings.Fields(expression)
 
 	for i := 0; i < len(tokens); i++ {
@@ -63,7 +63,7 @@ func isNumber(text string) (float64, bool) {
 	return number, err == nil
 }
 
-func pop(stack *stacks.Stack) (float64, error) {
+func pop(stack *slicestacks.Stack) (float64, error) {
 	numberInterface, err := stack.Pop()
 	if err != nil {
 		return 0, err

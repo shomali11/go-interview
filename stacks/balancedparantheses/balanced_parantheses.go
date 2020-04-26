@@ -1,6 +1,8 @@
 package balancedparantheses
 
-import "github.com/shomali11/go-interview/datastructures/stacks"
+import (
+	"github.com/shomali11/go-interview/datastructures/stacks/slicestacks"
+)
 
 const (
 	openParanthesis1 = '['
@@ -14,7 +16,7 @@ const (
 
 // IsBalancedParantheses determines if the parantheses are balanced
 func IsBalancedParantheses(expression string) bool {
-	stack := stacks.New()
+	stack := slicestacks.New()
 
 	for _, char := range []rune(expression) {
 		if isOpenParantheses(char) {
