@@ -19,6 +19,7 @@ Collection of Technical Interview Questions solved with Go
     * [Hash Sets](https://github.com/shomali11/go-interview/tree/master/datastructures/sets/hashsets)
   * [Stacks](https://github.com/shomali11/go-interview/tree/master/datastructures/stacks)
     * [Linked List Stacks](https://github.com/shomali11/go-interview/tree/master/datastructures/stacks/linkedliststacks)
+    * [Min/Max Stacks](https://github.com/shomali11/go-interview/tree/master/datastructures/stacks/minmaxstacks)
     * [Slice Stacks](https://github.com/shomali11/go-interview/tree/master/datastructures/stacks/slicestacks)
 * [Evaluations](https://github.com/shomali11/go-interview/tree/master/evaluations)
   * [Postfix](https://github.com/shomali11/go-interview/tree/master/evaluations/postfixes)
