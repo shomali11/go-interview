@@ -5,6 +5,7 @@ Check if a multi tree is balanced. A balanced tree is a tree where every leaf is
 
 ### Example 1:
 
+```
 Input:
 
   4
@@ -15,9 +16,11 @@ Input:
 
 Output:
 true
+```
 
 ### Example 2:
 
+```
 Input:
 
        4
@@ -30,3 +33,4 @@ Input:
 
 Output:
 false
+```

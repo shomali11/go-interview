@@ -5,6 +5,7 @@ Invert a tree.
 
 ### Example 1:
 
+```
 Input:
 
      4
@@ -20,3 +21,4 @@ Output:
   7     2
  / \   / \
 9   6 3   1
+```

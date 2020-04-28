@@ -5,6 +5,7 @@ Determine a binary tree's height
 
 ### Example 1:
 
+```
 Input:
 
      4
@@ -13,9 +14,11 @@ Input:
 
 Output:
 2
+```
 
 ### Example 2:
 
+```
 Input:
 
      4
@@ -26,3 +29,4 @@ Input:
 
 Output:
 3
+```

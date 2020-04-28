@@ -5,6 +5,7 @@ Check if a binary tree is balanced. A balanced tree is a tree where every leaf i
 
 ### Example 1:
 
+```
 Input:
 
      4
@@ -15,9 +16,11 @@ Input:
 
 Output:
 true
+```
 
 ### Example 2:
 
+```
 Input:
 
      4
@@ -28,3 +31,4 @@ Input:
 
 Output:
 false
+```
