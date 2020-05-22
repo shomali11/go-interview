@@ -32,6 +32,7 @@ Collection of Technical Interview Questions solved with Go
   * [Armstrong Number](https://github.com/shomali11/go-interview/tree/master/numbers/armstrongs)
   * [Base Conversions](https://github.com/shomali11/go-interview/tree/master/numbers/bases)
   * [Count Digits](https://github.com/shomali11/go-interview/tree/master/numbers/countdigits)
+  * [Count Primes](https://github.com/shomali11/go-interview/tree/master/numbers/countprimes)
   * [Excel Column Conversions](https://github.com/shomali11/go-interview/tree/master/numbers/excels)
   * [Fibonacci Number](https://github.com/shomali11/go-interview/tree/master/numbers/fibonaccis)
   * [Leap Years](https://github.com/shomali11/go-interview/tree/master/numbers/leapyears)
