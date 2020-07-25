@@ -77,3 +77,4 @@ Collection of Technical Interview Questions solved with Go
   * [Longest Distinct Paths](https://github.com/shomali11/go-interview/tree/master/trees/longestdistinctpaths)
   * [Print By Columns](https://github.com/shomali11/go-interview/tree/master/trees/printcolumns)
   * [Print By Levels](https://github.com/shomali11/go-interview/tree/master/trees/printlevels)
+  * [Print Zig Zag](https://github.com/shomali11/go-interview/tree/master/trees/printzigzag)
