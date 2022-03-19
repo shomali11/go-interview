@@ -7,11 +7,11 @@ import (
 )
 
 func TestMaxStringPriorityQueue_IsEmpty(t *testing.T) {
-	compare := func(i, j interface{}) bool {
-		return i.(string) > j.(string)
+	compare := func(i, j string) bool {
+		return i > j
 	}
 
-	priorityQueue := New(compare)
+	priorityQueue := New[string](compare)
 	assert.Equal(t, priorityQueue.IsEmpty(), true)
 	assert.Equal(t, priorityQueue.Size(), 0)
 
@@ -21,11 +21,11 @@ func TestMaxStringPriorityQueue_IsEmpty(t *testing.T) {
 }
 
 func TestMaxStringPriorityQueue_Peek(t *testing.T) {
-	compare := func(i, j interface{}) bool {
-		return i.(string) > j.(string)
+	compare := func(i, j string) bool {
+		return i > j
 	}
 
-	priorityQueue := New(compare)
+	priorityQueue := New[string](compare)
 	_, err := priorityQueue.Peek()
 	assert.NotNil(t, err)
 
@@ -42,11 +42,11 @@ func TestMaxStringPriorityQueue_Peek(t *testing.T) {
 }
 
 func TestMaxStringPriorityQueue_Clear(t *testing.T) {
-	compare := func(i, j interface{}) bool {
-		return i.(string) > j.(string)
+	compare := func(i, j string) bool {
+		return i > j
 	}
 
-	priorityQueue := New(compare)
+	priorityQueue := New[string](compare)
 	assert.Equal(t, priorityQueue.IsEmpty(), true)
 	assert.Equal(t, priorityQueue.Size(), 0)
 
@@ -58,11 +58,11 @@ func TestMaxStringPriorityQueue_Clear(t *testing.T) {
 }
 
 func TestMaxStringPriorityQueue_Pop(t *testing.T) {
-	compare := func(i, j interface{}) bool {
-		return i.(string) > j.(string)
+	compare := func(i, j string) bool {
+		return i > j
 	}
 
-	priorityQueue := New(compare)
+	priorityQueue := New[string](compare)
 	priorityQueue.Push("abc")
 	priorityQueue.Push("sweet", "xyz")
 
