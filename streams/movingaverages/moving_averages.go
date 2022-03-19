@@ -6,14 +6,14 @@ import (
 
 // New creates a new moving average structure with a fixed sliding window
 func New(windowSize int) *MovingAverage {
-	return &MovingAverage{sum: 0, windowSize: windowSize, queue: queues.New()}
+	return &MovingAverage{sum: 0, windowSize: windowSize, queue: queues.New[int]()}
 }
 
 // MovingAverage keeps track of the moving average
 type MovingAverage struct {
 	sum        int
 	windowSize int
-	queue      *queues.Queue
+	queue      *queues.Queue[int]
 }
 
 // Add adds a number to the moving average calculations
@@ -25,7 +25,7 @@ func (ma *MovingAverage) Add(number int) {
 	}
 
 	value, _ := ma.queue.Dequeue()
-	ma.sum -= value.(int)
+	ma.sum -= value
 }
 
 // GetAverage calculates the moving average
