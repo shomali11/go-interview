@@ -1,18 +1,18 @@
 package hashmultimaps
 
 // New factory that creates a new Hash Multi Map
-func New[T, V comparable]() *HashMultiMap[T, V] {
-	multiMap := HashMultiMap[T, V]{data: make(map[T][]V)}
+func New[K, V comparable]() *HashMultiMap[K, V] {
+	multiMap := HashMultiMap[K, V]{data: make(map[K][]V)}
 	return &multiMap
 }
 
 // HashMultiMap a data structure representing a map of keys with lists of values
-type HashMultiMap[T, V comparable] struct {
-	data map[T][]V
+type HashMultiMap[K, V comparable] struct {
+	data map[K][]V
 }
 
 // Merge merge multiple multi maps
-func (s *HashMultiMap[T, V]) Merge(maps ...*HashMultiMap[T, V]) {
+func (s *HashMultiMap[K, V]) Merge(maps ...*HashMultiMap[K, V]) {
 	for _, multiMap := range maps {
 		for _, key := range multiMap.GetKeys() {
 			values := multiMap.GetValues(key)
@@ -22,7 +22,7 @@ func (s *HashMultiMap[T, V]) Merge(maps ...*HashMultiMap[T, V]) {
 }
 
 // Put key/value pair to the multi map
-func (s *HashMultiMap[T, V]) Put(key T, value V) {
+func (s *HashMultiMap[K, V]) Put(key K, value V) {
 	values, ok := s.data[key]
 	if !ok {
 		values = make([]V, 0)
@@ -32,15 +32,15 @@ func (s *HashMultiMap[T, V]) Put(key T, value V) {
 }
 
 // PutAll put key/values to the multi map
-func (s *HashMultiMap[T, V]) PutAll(key T, values ...V) {
+func (s *HashMultiMap[K, V]) PutAll(key K, values ...V) {
 	for _, value := range values {
 		s.Put(key, value)
 	}
 }
 
 // GetKeys returns a list of the multi map's keys
-func (s *HashMultiMap[T, V]) GetKeys() []T {
-	keys := make([]T, 0, s.Size())
+func (s *HashMultiMap[K, V]) GetKeys() []K {
+	keys := make([]K, 0, s.Size())
 	for key := range s.data {
 		keys = append(keys, key)
 	}
@@ -48,13 +48,13 @@ func (s *HashMultiMap[T, V]) GetKeys() []T {
 }
 
 // Contains checks if a key is in the multi map
-func (s *HashMultiMap[T, V]) Contains(key T) bool {
+func (s *HashMultiMap[K, V]) Contains(key K) bool {
 	_, exists := s.data[key]
 	return exists
 }
 
 // ContainsAll checks if all keys are in the multi map
-func (s *HashMultiMap[T, V]) ContainsAll(keys ...T) bool {
+func (s *HashMultiMap[K, V]) ContainsAll(keys ...K) bool {
 	for _, key := range keys {
 		if !s.Contains(key) {
 			return false
@@ -64,7 +64,7 @@ func (s *HashMultiMap[T, V]) ContainsAll(keys ...T) bool {
 }
 
 // ContainsAny checks if any keys are in the multi map
-func (s *HashMultiMap[T, V]) ContainsAny(keys ...T) bool {
+func (s *HashMultiMap[K, V]) ContainsAny(keys ...K) bool {
 	for _, key := range keys {
 		if s.Contains(key) {
 			return true
@@ -74,7 +74,7 @@ func (s *HashMultiMap[T, V]) ContainsAny(keys ...T) bool {
 }
 
 // GetValues returns values associated with the key
-func (s *HashMultiMap[T, V]) GetValues(key T) []V {
+func (s *HashMultiMap[K, V]) GetValues(key K) []V {
 	values, ok := s.data[key]
 	if !ok {
 		return make([]V, 0)
@@ -83,14 +83,14 @@ func (s *HashMultiMap[T, V]) GetValues(key T) []V {
 }
 
 // RemoveKey removes a key and all its values
-func (s *HashMultiMap[T, V]) RemoveKey(keys ...T) {
+func (s *HashMultiMap[K, V]) RemoveKey(keys ...K) {
 	for _, key := range keys {
 		delete(s.data, key)
 	}
 }
 
 // Remove removes a value from a key's values
-func (s *HashMultiMap[T, V]) Remove(key T, value V) {
+func (s *HashMultiMap[K, V]) Remove(key K, value V) {
 	values, ok := s.data[key]
 	if !ok {
 		return
@@ -107,17 +107,17 @@ func (s *HashMultiMap[T, V]) Remove(key T, value V) {
 }
 
 // Clear clears the multiMap
-func (s *HashMultiMap[T, V]) Clear() {
-	s.data = make(map[T][]V)
+func (s *HashMultiMap[K, V]) Clear() {
+	s.data = make(map[K][]V)
 }
 
 // IsEmpty checks if the multiMap is empty
-func (s *HashMultiMap[T, V]) IsEmpty() bool {
+func (s *HashMultiMap[K, V]) IsEmpty() bool {
 	return s.Size() == 0
 }
 
 // Size returns size of the multiMap
-func (s *HashMultiMap[T, V]) Size() int {
+func (s *HashMultiMap[K, V]) Size() int {
 	return len(s.data)
 }
 
