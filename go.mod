@@ -6,6 +6,7 @@ require (
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
 	github.com/shomali11/gridder v0.0.0-20200411014130-6eb52d16b35b
 	github.com/stretchr/testify v1.5.1
+	golang.org/x/exp v0.0.0-20220318154914-8dddf5d87bd8
 	golang.org/x/image v0.0.0-20200119044424-58c23975cae1
 )
 

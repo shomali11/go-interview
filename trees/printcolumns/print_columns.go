@@ -6,38 +6,39 @@ import (
 	"github.com/shomali11/go-interview/datastructures/maps/hashmultimaps"
 	"github.com/shomali11/go-interview/datastructures/queues"
 	"github.com/shomali11/go-interview/datastructures/trees"
+
+	"golang.org/x/exp/constraints"
 )
 
 // PrintColumns prints a tree column by column
-func PrintColumns(node *trees.BinaryNode) {
+func PrintColumns[T constraints.Integer](node *trees.BinaryNode[T]) {
 	if node == nil {
 		return
 	}
 
-	queue := queues.New()
+	queue := queues.New[*trees.BinaryNode[T]]()
 	queue.Enqueue(node)
 
-	multimap := hashmultimaps.New()
+	multimap := hashmultimaps.New[int, *trees.BinaryNode[T]]()
 	multimap.Put(0, node)
 
-	mapNodeIndex := make(map[*trees.BinaryNode]int)
+	mapNodeIndex := make(map[*trees.BinaryNode[T]]int)
 	mapNodeIndex[node] = 0
 
 	for !queue.IsEmpty() {
 		element, _ := queue.Dequeue()
-		node := element.(*trees.BinaryNode)
-		nodeIndex := mapNodeIndex[node]
+		nodeIndex := mapNodeIndex[element]
 
-		if node.Left != nil {
-			queue.Enqueue(node.Left)
-			multimap.Put(nodeIndex-1, node.Left)
-			mapNodeIndex[node.Left] = nodeIndex - 1
+		if element.Left != nil {
+			queue.Enqueue(element.Left)
+			multimap.Put(nodeIndex-1, element.Left)
+			mapNodeIndex[element.Left] = nodeIndex - 1
 		}
 
-		if node.Right != nil {
-			queue.Enqueue(node.Right)
-			multimap.Put(nodeIndex+1, node.Right)
-			mapNodeIndex[node.Right] = nodeIndex + 1
+		if element.Right != nil {
+			queue.Enqueue(element.Right)
+			multimap.Put(nodeIndex+1, element.Right)
+			mapNodeIndex[element.Right] = nodeIndex + 1
 		}
 	}
 
@@ -45,19 +46,19 @@ func PrintColumns(node *trees.BinaryNode) {
 	minIndex, maxIndex := minMax(keys...)
 	for i := minIndex; i <= maxIndex; i++ {
 		for _, value := range multimap.GetValues(i) {
-			fmt.Print(value.(*trees.BinaryNode).Data, " ")
+			fmt.Print(value.Data, " ")
 		}
 		fmt.Println()
 	}
 }
 
-func minMax(values ...interface{}) (int, int) {
-	first := values[0].(int)
+func minMax[T constraints.Integer](values ...T) (T, T) {
+	first := values[0]
 	min := first
 	max := first
 
 	for i := 1; i < len(values); i++ {
-		current := values[i].(int)
+		current := values[i]
 		if current < min {
 			min = current
 		}
