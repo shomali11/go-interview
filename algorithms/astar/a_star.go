@@ -28,14 +28,14 @@ type wrapper struct {
 
 // New new factory
 func New() *AStar {
-	compare := func(one, two interface{}) bool {
-		f1 := one.(*wrapper).g + one.(*wrapper).h
-		f2 := two.(*wrapper).g + two.(*wrapper).h
+	compare := func(one, two *wrapper) bool {
+		f1 := one.g + one.h
+		f2 := two.g + two.h
 
 		// Tie Breaker ... Maximum G Value
 		if f1 == f2 {
-			g1 := one.(*wrapper).g
-			g2 := two.(*wrapper).g
+			g1 := one.g
+			g2 := two.g
 
 			// Maximum G Value
 			return g1 > g2
@@ -44,13 +44,17 @@ func New() *AStar {
 		// Minimum F Value
 		return f1 < f2
 	}
-	return &AStar{openPQ: priorityqueues.New(compare), closedSet: hashsets.New(), nodeWrapperMap: make(map[Node]*wrapper)}
+	return &AStar{
+		openPQ:         priorityqueues.New[*wrapper](compare),
+		closedSet:      hashsets.New[*wrapper](),
+		nodeWrapperMap: make(map[Node]*wrapper),
+	}
 }
 
 // AStar a star
 type AStar struct {
-	openPQ         *priorityqueues.PriorityQueue
-	closedSet      *hashsets.HashSet
+	openPQ         *priorityqueues.PriorityQueue[*wrapper]
+	closedSet      *hashsets.HashSet[*wrapper]
 	nodeWrapperMap map[Node]*wrapper
 }
 
@@ -69,19 +73,18 @@ func (s *AStar) Search(start Node, goal Node) ([]Node, float64) {
 	for !s.openPQ.IsEmpty() {
 		// Extract Top of the Heap ...
 		currentElement, _ := s.openPQ.Pop()
-		currentWrapper := currentElement.(*wrapper)
 
 		// Did we reach Goal ?
-		if currentWrapper == goalWrapper {
+		if currentElement == goalWrapper {
 			// Shortest Path ...
 			return getPath(goalWrapper), goalWrapper.g
 		}
 
 		// Set Node to Visited ...
-		s.closedSet.Add(currentWrapper)
+		s.closedSet.Add(currentElement)
 
 		// Get List of neighbors ..
-		neighbors := currentWrapper.node.GetNeighbors()
+		neighbors := currentElement.node.GetNeighbors()
 
 		// Traverse the neighbors ...
 		for _, neighborNode := range neighbors {
@@ -95,7 +98,7 @@ func (s *AStar) Search(start Node, goal Node) ([]Node, float64) {
 					neighborWrapper.parent = nil
 				}
 
-				s.updateVertex(currentWrapper, neighborWrapper, goalWrapper)
+				s.updateVertex(currentElement, neighborWrapper, goalWrapper)
 			}
 		}
 	}
@@ -140,7 +143,7 @@ func (s *AStar) getWrapper(node Node) *wrapper {
 }
 
 func getPath(goalWrapper *wrapper) []Node {
-	path := singlylinkedlists.New()
+	path := singlylinkedlists.New[Node]()
 	currentWrapper := goalWrapper
 	for currentWrapper != nil {
 		path.InsertAt(0, currentWrapper.node)
