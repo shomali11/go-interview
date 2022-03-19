@@ -7,7 +7,7 @@ import (
 )
 
 func TestHashMultiSet(t *testing.T) {
-	set := New()
+	set := New[string]()
 	set.Add("hello")
 
 	assert.Equal(t, set.Contains("hello"), true)
@@ -22,40 +22,40 @@ func TestHashMultiSet(t *testing.T) {
 	set.Clear()
 	assert.Equal(t, set.Size(), 0)
 
-	set.Add(111)
-	assert.Equal(t, set.Contains(111), true)
-	assert.Equal(t, set.ContainsAll(111), true)
-	assert.Equal(t, set.ContainsAny(111), true)
-	assert.Equal(t, set.GetCount(111), 1)
+	set.Add("111")
+	assert.Equal(t, set.Contains("111"), true)
+	assert.Equal(t, set.ContainsAll("111"), true)
+	assert.Equal(t, set.ContainsAny("111"), true)
+	assert.Equal(t, set.GetCount("111"), 1)
 	assert.Equal(t, set.Size(), 1)
-	assert.Equal(t, set.GetValues()[0], 111)
+	assert.Equal(t, set.GetValues()[0], "111")
 
-	set.Remove(111)
+	set.Remove("111")
 	assert.Equal(t, set.Size(), 0)
-	assert.Equal(t, set.Contains(111), false)
-	assert.Equal(t, set.ContainsAll(111), false)
-	assert.Equal(t, set.ContainsAny(111), false)
-	assert.Equal(t, set.GetCount(111), 0)
+	assert.Equal(t, set.Contains("111"), false)
+	assert.Equal(t, set.ContainsAll("111"), false)
+	assert.Equal(t, set.ContainsAny("111"), false)
+	assert.Equal(t, set.GetCount("111"), 0)
 }
 
 func TestHashMultiSetMerge(t *testing.T) {
-	set1 := New()
-	set1.Add(true, "true")
+	set1 := New[int]()
+	set1.Add(1, 2)
 
-	set2 := New(true, 5)
+	set2 := New[int](1, 3)
 
-	set3 := New()
+	set3 := New[int]()
 	set3.Merge(set1, set2)
 
 	assert.Equal(t, set3.Size(), 3)
-	assert.Equal(t, set3.GetCount(true), 2)
-	assert.Equal(t, set3.GetCount("true"), 1)
-	assert.Equal(t, set3.GetCount(5), 1)
-	assert.Equal(t, set3.ContainsAll(true, "true", 5), true)
+	assert.Equal(t, set3.GetCount(1), 2)
+	assert.Equal(t, set3.GetCount(2), 1)
+	assert.Equal(t, set3.GetCount(3), 1)
+	assert.Equal(t, set3.ContainsAll(1, 2, 3), true)
 }
 
 func TestHashMultiSetTop(t *testing.T) {
-	set := New()
+	set := New[string]()
 	set.IncrementBy("key1", 10)
 	set.IncrementBy("key2", 15)
 
