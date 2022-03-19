@@ -6,8 +6,8 @@ import (
 )
 
 // GroupAnagrams groups anagrams
-func GroupAnagrams(list []string) *hashmultimaps.HashMultiMap {
-	multimap := hashmultimaps.New()
+func GroupAnagrams(list []string) *hashmultimaps.HashMultiMap[string, string] {
+	multimap := hashmultimaps.New[string, string]()
 	for _, value := range list {
 		sortedValue := sorts.Sort(value)
 		multimap.Put(sortedValue, value)
