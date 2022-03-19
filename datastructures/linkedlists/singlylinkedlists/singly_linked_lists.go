@@ -2,6 +2,7 @@ package singlylinkedlists
 
 import (
 	"errors"
+	"reflect"
 )
 
 var (
@@ -10,20 +11,20 @@ var (
 )
 
 // New factory to generate new singly linked lists
-func New[T comparable](values ...T) *SinglyLinkedList[T] {
+func New[T any](values ...T) *SinglyLinkedList[T] {
 	list := SinglyLinkedList[T]{}
 	list.Add(values...)
 	return &list
 }
 
 // SLLNode singly linked list node
-type SLLNode[T comparable] struct {
+type SLLNode[T any] struct {
 	Value T
 	Next  *SLLNode[T]
 }
 
 // SinglyLinkedList singly linked list structure
-type SinglyLinkedList[T comparable] struct {
+type SinglyLinkedList[T any] struct {
 	count int
 	head  *SLLNode[T]
 	tail  *SLLNode[T]
@@ -71,7 +72,7 @@ func (s *SinglyLinkedList[T]) GetIndexOf(value T) int {
 	index := 0
 	current := s.head
 	for current != nil {
-		if value == current.Value {
+		if reflect.DeepEqual(value, current.Value) {
 			return index
 		}
 		current = current.Next

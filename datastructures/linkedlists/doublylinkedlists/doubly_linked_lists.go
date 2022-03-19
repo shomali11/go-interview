@@ -2,6 +2,7 @@ package doublylinkedlists
 
 import (
 	"errors"
+	"reflect"
 )
 
 var (
@@ -10,21 +11,21 @@ var (
 )
 
 // New factory to generate new doubly linked lists
-func New[T comparable](values ...T) *DoublyLinkedList[T] {
+func New[T any](values ...T) *DoublyLinkedList[T] {
 	list := DoublyLinkedList[T]{}
 	list.Add(values...)
 	return &list
 }
 
 // DLLNode doubly linked list node
-type DLLNode[T comparable] struct {
+type DLLNode[T any] struct {
 	Value    T
 	Previous *DLLNode[T]
 	Next     *DLLNode[T]
 }
 
 // DoublyLinkedList doubly linked list structure
-type DoublyLinkedList[T comparable] struct {
+type DoublyLinkedList[T any] struct {
 	count int
 	head  *DLLNode[T]
 	tail  *DLLNode[T]
@@ -85,7 +86,7 @@ func (s *DoublyLinkedList[T]) GetIndexOf(value T) int {
 	index := 0
 	current := s.head
 	for current != nil {
-		if value == current.Value {
+		if reflect.DeepEqual(value, current.Value) {
 			return index
 		}
 		current = current.Next
@@ -100,7 +101,7 @@ func (s *DoublyLinkedList[T]) GetLastIndexOf(value T) int {
 	index := s.Size() - 1
 	current := s.tail
 	for current != nil {
-		if value == current.Value {
+		if reflect.DeepEqual(value, current.Value) {
 			return index
 		}
 		current = current.Previous
