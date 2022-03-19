@@ -11,12 +11,12 @@ var (
 )
 
 // New factory to generate new stacks
-func New[T comparable](values ...T) *Stack[T] {
+func New[T any](values ...T) *Stack[T] {
 	return &Stack[T]{list: singlylinkedlists.New[T](values...)}
 }
 
 // Stack stack structure
-type Stack[T comparable] struct {
+type Stack[T any] struct {
 	list *singlylinkedlists.SinglyLinkedList[T]
 }
 
