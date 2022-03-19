@@ -8,9 +8,9 @@ import (
 )
 
 func TestReverse(t *testing.T) {
-	node1 := &singlylinkedlists.SLLNode{Value: "1"}
-	node2 := &singlylinkedlists.SLLNode{Value: "2"}
-	node3 := &singlylinkedlists.SLLNode{Value: "3"}
+	node1 := &singlylinkedlists.SLLNode[string]{Value: "1"}
+	node2 := &singlylinkedlists.SLLNode[string]{Value: "2"}
+	node3 := &singlylinkedlists.SLLNode[string]{Value: "3"}
 
 	node1.Next = node2
 	node2.Next = node3
