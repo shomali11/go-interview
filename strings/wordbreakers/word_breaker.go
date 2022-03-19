@@ -14,14 +14,14 @@ const (
 
 // BreakWord breaks into possible words
 func BreakWord(input string, values []string) string {
-	dictionary := hashsets.New()
+	dictionary := hashsets.New[string]()
 	for _, value := range values {
 		dictionary.Add(value)
 	}
 	return breakWord(input, dictionary, make(map[string]string))
 }
 
-func breakWord(input string, dictionary *hashsets.HashSet, cache map[string]string) string {
+func breakWord(input string, dictionary *hashsets.HashSet[string], cache map[string]string) string {
 	if dictionary.Contains(input) {
 		return input
 	}
@@ -49,7 +49,7 @@ func breakWord(input string, dictionary *hashsets.HashSet, cache map[string]stri
 
 // ExtractWords extracts all possible words
 func ExtractWords(input string, values []string) []string {
-	dictionary := hashsets.New()
+	dictionary := hashsets.New[string]()
 	for _, value := range values {
 		dictionary.Add(value)
 	}
@@ -63,8 +63,8 @@ func ExtractWords(input string, values []string) []string {
 	return results
 }
 
-func extractWords(input string, dictionary *hashsets.HashSet, cache map[string]string) *hashsets.HashSet {
-	resultSet := hashsets.New()
+func extractWords(input string, dictionary *hashsets.HashSet[string], cache map[string]string) *hashsets.HashSet[string] {
+	resultSet := hashsets.New[string]()
 	if dictionary.Contains(input) {
 		resultSet.Add(input)
 	}
