@@ -8,7 +8,7 @@ import (
 )
 
 func TestDoublyLinked_GetFirstValue(t *testing.T) {
-	list := New()
+	list := New[string]()
 
 	_, err := list.GetFirstValue()
 	assert.NotNil(t, err)
@@ -33,7 +33,7 @@ func TestDoublyLinked_GetFirstValue(t *testing.T) {
 }
 
 func TestDoublyLinked_GetLastValue(t *testing.T) {
-	list := New()
+	list := New[string]()
 
 	_, err := list.GetLastValue()
 	assert.NotNil(t, err)
@@ -58,29 +58,29 @@ func TestDoublyLinked_GetLastValue(t *testing.T) {
 }
 
 func TestDoublyLinked_GetValues(t *testing.T) {
-	list := New()
-	assert.True(t, reflect.DeepEqual(list.GetValues(), []interface{}{}))
+	list := New[string]()
+	assert.True(t, reflect.DeepEqual(list.GetValues(), []string{}))
 
 	list.Add("a", "b", "c")
-	assert.True(t, reflect.DeepEqual(list.GetValues(), []interface{}{"a", "b", "c"}))
+	assert.True(t, reflect.DeepEqual(list.GetValues(), []string{"a", "b", "c"}))
 
 	list.InsertAt(1, "d")
-	assert.True(t, reflect.DeepEqual(list.GetValues(), []interface{}{"a", "d", "b", "c"}))
+	assert.True(t, reflect.DeepEqual(list.GetValues(), []string{"a", "d", "b", "c"}))
 }
 
 func TestDoublyLinked_GetReverseValues(t *testing.T) {
-	list := New()
-	assert.True(t, reflect.DeepEqual(list.GetReverseValues(), []interface{}{}))
+	list := New[string]()
+	assert.True(t, reflect.DeepEqual(list.GetReverseValues(), []string{}))
 
 	list.Add("a", "b", "c")
-	assert.True(t, reflect.DeepEqual(list.GetReverseValues(), []interface{}{"c", "b", "a"}))
+	assert.True(t, reflect.DeepEqual(list.GetReverseValues(), []string{"c", "b", "a"}))
 
 	list.InsertAt(1, "d")
-	assert.True(t, reflect.DeepEqual(list.GetReverseValues(), []interface{}{"c", "b", "d", "a"}))
+	assert.True(t, reflect.DeepEqual(list.GetReverseValues(), []string{"c", "b", "d", "a"}))
 }
 
 func TestDoublyLinkedList_IsEmpty(t *testing.T) {
-	list := New()
+	list := New[string]()
 	assert.Equal(t, list.IsEmpty(), true)
 
 	list.Add("hello")
@@ -91,7 +91,7 @@ func TestDoublyLinkedList_IsEmpty(t *testing.T) {
 }
 
 func TestDoublyLinkedList_Size(t *testing.T) {
-	list := New()
+	list := New[string]()
 	assert.Equal(t, list.Size(), 0)
 
 	list.Add("hello")
@@ -108,7 +108,7 @@ func TestDoublyLinkedList_Size(t *testing.T) {
 }
 
 func TestDoublyLinkedList_GetIndexOf(t *testing.T) {
-	list := New()
+	list := New[string]()
 	assert.Equal(t, list.GetIndexOf("hello"), -1)
 
 	list.Add("hello")
@@ -122,7 +122,7 @@ func TestDoublyLinkedList_GetIndexOf(t *testing.T) {
 }
 
 func TestDoublyLinkedList_GetLastIndexOf(t *testing.T) {
-	list := New()
+	list := New[string]()
 	assert.Equal(t, list.GetLastIndexOf("hello"), -1)
 
 	list.Add("hello")
@@ -136,7 +136,7 @@ func TestDoublyLinkedList_GetLastIndexOf(t *testing.T) {
 }
 
 func TestDoublyLinkedList_InsertAt(t *testing.T) {
-	list := New()
+	list := New[string]()
 
 	err := list.InsertAt(3, "hello")
 	assert.NotNil(t, err)
@@ -146,7 +146,7 @@ func TestDoublyLinkedList_InsertAt(t *testing.T) {
 }
 
 func TestDoublyLinkedList_RemoveAt(t *testing.T) {
-	list := New()
+	list := New[string]()
 
 	_, err := list.RemoveAt(0)
 	assert.NotNil(t, err)
@@ -158,19 +158,19 @@ func TestDoublyLinkedList_RemoveAt(t *testing.T) {
 }
 
 func TestDoublyLinkedList_Clear(t *testing.T) {
-	list := New()
+	list := New[string]()
 
 	list.Clear()
-	assert.True(t, reflect.DeepEqual(list.GetValues(), []interface{}{}))
-	assert.True(t, reflect.DeepEqual(list.GetReverseValues(), []interface{}{}))
+	assert.True(t, reflect.DeepEqual(list.GetValues(), []string{}))
+	assert.True(t, reflect.DeepEqual(list.GetReverseValues(), []string{}))
 	assert.Equal(t, list.IsEmpty(), true)
 	assert.Equal(t, list.Size(), 0)
 
 	list.Add("hello")
 
 	list.Clear()
-	assert.True(t, reflect.DeepEqual(list.GetValues(), []interface{}{}))
-	assert.True(t, reflect.DeepEqual(list.GetReverseValues(), []interface{}{}))
+	assert.True(t, reflect.DeepEqual(list.GetValues(), []string{}))
+	assert.True(t, reflect.DeepEqual(list.GetReverseValues(), []string{}))
 	assert.Equal(t, list.IsEmpty(), true)
 	assert.Equal(t, list.Size(), 0)
 }

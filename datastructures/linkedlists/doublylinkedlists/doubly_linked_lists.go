@@ -10,38 +10,38 @@ var (
 )
 
 // New factory to generate new doubly linked lists
-func New(values ...interface{}) *DoublyLinkedList {
-	list := DoublyLinkedList{}
+func New[T comparable](values ...T) *DoublyLinkedList[T] {
+	list := DoublyLinkedList[T]{}
 	list.Add(values...)
 	return &list
 }
 
 // DLLNode doubly linked list node
-type DLLNode struct {
-	Value    interface{}
-	Previous *DLLNode
-	Next     *DLLNode
+type DLLNode[T comparable] struct {
+	Value    T
+	Previous *DLLNode[T]
+	Next     *DLLNode[T]
 }
 
 // DoublyLinkedList doubly linked list structure
-type DoublyLinkedList struct {
+type DoublyLinkedList[T comparable] struct {
 	count int
-	head  *DLLNode
-	tail  *DLLNode
+	head  *DLLNode[T]
+	tail  *DLLNode[T]
 }
 
 // IsEmpty checks if the list is empty
-func (s *DoublyLinkedList) IsEmpty() bool {
+func (s *DoublyLinkedList[T]) IsEmpty() bool {
 	return s.Size() == 0
 }
 
 // Size returns size of the list
-func (s *DoublyLinkedList) Size() int {
+func (s *DoublyLinkedList[T]) Size() int {
 	return s.count
 }
 
 // Clear clears list
-func (s *DoublyLinkedList) Clear() {
+func (s *DoublyLinkedList[T]) Clear() {
 	current := s.head
 	for current != nil {
 		temp := current
@@ -57,8 +57,8 @@ func (s *DoublyLinkedList) Clear() {
 }
 
 // GetValues returns values from head to tail
-func (s *DoublyLinkedList) GetValues() []interface{} {
-	values := make([]interface{}, 0, s.Size())
+func (s *DoublyLinkedList[T]) GetValues() []T {
+	values := make([]T, 0, s.Size())
 	current := s.head
 	for current != nil {
 		values = append(values, current.Value)
@@ -69,8 +69,8 @@ func (s *DoublyLinkedList) GetValues() []interface{} {
 }
 
 // GetReverseValues returns values from tail to head
-func (s *DoublyLinkedList) GetReverseValues() []interface{} {
-	values := make([]interface{}, 0, s.Size())
+func (s *DoublyLinkedList[T]) GetReverseValues() []T {
+	values := make([]T, 0, s.Size())
 	current := s.tail
 	for current != nil {
 		values = append(values, current.Value)
@@ -81,7 +81,7 @@ func (s *DoublyLinkedList) GetReverseValues() []interface{} {
 }
 
 // GetIndexOf returns the index of the first occurence
-func (s *DoublyLinkedList) GetIndexOf(value interface{}) int {
+func (s *DoublyLinkedList[T]) GetIndexOf(value T) int {
 	index := 0
 	current := s.head
 	for current != nil {
@@ -96,7 +96,7 @@ func (s *DoublyLinkedList) GetIndexOf(value interface{}) int {
 }
 
 // GetLastIndexOf returns the index of the last occurence
-func (s *DoublyLinkedList) GetLastIndexOf(value interface{}) int {
+func (s *DoublyLinkedList[T]) GetLastIndexOf(value T) int {
 	index := s.Size() - 1
 	current := s.tail
 	for current != nil {
@@ -111,19 +111,19 @@ func (s *DoublyLinkedList) GetLastIndexOf(value interface{}) int {
 }
 
 // Add add to the list
-func (s *DoublyLinkedList) Add(values ...interface{}) {
+func (s *DoublyLinkedList[T]) Add(values ...T) {
 	for _, value := range values {
 		s.InsertAt(s.Size(), value)
 	}
 }
 
 // InsertAt insert value at specific index in the list
-func (s *DoublyLinkedList) InsertAt(index int, value interface{}) error {
+func (s *DoublyLinkedList[T]) InsertAt(index int, value T) error {
 	if index < 0 || index > s.count {
 		return errIndexOutOfBounds
 	}
 
-	element := &DLLNode{Value: value}
+	element := &DLLNode[T]{Value: value}
 	if s.IsEmpty() {
 		s.head = element
 		s.tail = element
@@ -166,17 +166,17 @@ func (s *DoublyLinkedList) InsertAt(index int, value interface{}) error {
 }
 
 // RemoveAt remove value from the list at specific index
-func (s *DoublyLinkedList) RemoveAt(index int) (interface{}, error) {
+func (s *DoublyLinkedList[T]) RemoveAt(index int) (res T, err error) {
 	if index < 0 || index >= s.count {
-		return nil, errIndexOutOfBounds
+		return res, errIndexOutOfBounds
 	}
 
 	if s.count == 1 {
-		value := s.head.Value
+		res = s.head.Value
 		s.head = nil
 		s.tail = nil
 		s.count--
-		return value, nil
+		return res, nil
 	}
 
 	if index == 0 {
@@ -184,10 +184,10 @@ func (s *DoublyLinkedList) RemoveAt(index int) (interface{}, error) {
 		s.head = current.Next
 		current.Next.Previous = nil
 		current.Next = nil
-		value := current.Value
+		res = current.Value
 		s.count--
 		current = nil
-		return value, nil
+		return res, nil
 	}
 
 	if index == s.count-1 {
@@ -195,66 +195,66 @@ func (s *DoublyLinkedList) RemoveAt(index int) (interface{}, error) {
 		s.tail = current.Previous
 		current.Previous.Next = nil
 		current.Previous = nil
-		value := current.Value
+		res = current.Value
 		s.count--
 		current = nil
-		return value, nil
+		return res, nil
 	}
 
 	current, err := s.getNode(index)
 	if err != nil {
-		return nil, err
+		return res, err
 	}
 
-	value := current.Value
+	res = current.Value
 	current.Previous.Next = current.Next
 	current.Next.Previous = current.Previous
 	s.count--
 	current = nil
-	return value, nil
+	return res, nil
 }
 
 // GetValueAt returns value at a specific index in the list
-func (s *DoublyLinkedList) GetValueAt(index int) (interface{}, error) {
+func (s *DoublyLinkedList[T]) GetValueAt(index int) (res T, err error) {
 	current, err := s.getNode(index)
 	if err != nil {
-		return nil, err
+		return res, err
 	}
 	return current.Value, nil
 }
 
 // GetFirstValue returns first value in the list
-func (s *DoublyLinkedList) GetFirstValue() (interface{}, error) {
+func (s *DoublyLinkedList[T]) GetFirstValue() (res T, err error) {
 	if s.IsEmpty() {
-		return nil, errEmptyList
+		return res, errEmptyList
 	}
 	return s.head.Value, nil
 }
 
 // GetLastValue returns last value in the list
-func (s *DoublyLinkedList) GetLastValue() (interface{}, error) {
+func (s *DoublyLinkedList[T]) GetLastValue() (res T, err error) {
 	if s.IsEmpty() {
-		return nil, errEmptyList
+		return res, errEmptyList
 	}
 	return s.tail.Value, nil
 }
 
 // GetHead returns head node of the list
-func (s *DoublyLinkedList) GetHead() *DLLNode {
+func (s *DoublyLinkedList[T]) GetHead() *DLLNode[T] {
 	return s.head
 }
 
 // GetTail returns tail node of the list
-func (s *DoublyLinkedList) GetTail() *DLLNode {
+func (s *DoublyLinkedList[T]) GetTail() *DLLNode[T] {
 	return s.tail
 }
 
-func (s *DoublyLinkedList) getNode(index int) (*DLLNode, error) {
+func (s *DoublyLinkedList[T]) getNode(index int) (*DLLNode[T], error) {
 	if index < 0 || index >= s.count {
 		return nil, errIndexOutOfBounds
 	}
 
-	var current *DLLNode
+	var current *DLLNode[T]
 	if index-0 <= s.count-1-index {
 		current = s.head
 		for i := 0; i < index; i++ {
