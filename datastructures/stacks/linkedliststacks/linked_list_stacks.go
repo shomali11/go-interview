@@ -11,52 +11,52 @@ var (
 )
 
 // New factory to generate new stacks
-func New(values ...interface{}) *Stack {
-	return &Stack{list: singlylinkedlists.New(values...)}
+func New[T comparable](values ...T) *Stack[T] {
+	return &Stack[T]{list: singlylinkedlists.New[T](values...)}
 }
 
 // Stack stack structure
-type Stack struct {
-	list *singlylinkedlists.SinglyLinkedList
+type Stack[T comparable] struct {
+	list *singlylinkedlists.SinglyLinkedList[T]
 }
 
 // Push add to the stack
-func (s *Stack) Push(values ...interface{}) {
+func (s *Stack[T]) Push(values ...T) {
 	s.list.Add(values...)
 }
 
 // IsEmpty checks if the stack is empty
-func (s *Stack) IsEmpty() bool {
+func (s *Stack[T]) IsEmpty() bool {
 	return s.Size() == 0
 }
 
 // Size returns size of the stack
-func (s *Stack) Size() int {
+func (s *Stack[T]) Size() int {
 	return s.list.Size()
 }
 
 // Clear clears stack
-func (s *Stack) Clear() {
+func (s *Stack[T]) Clear() {
 	s.list.Clear()
 }
 
 // Pop remove from the stack
-func (s *Stack) Pop() (interface{}, error) {
+func (s *Stack[T]) Pop() (res T, err error) {
 	if s.IsEmpty() {
-		return nil, errEmptyStack
+		return res, errEmptyStack
 	}
 	return s.list.RemoveAt(s.Size() - 1)
 }
 
 // Peek returns top of the stack
-func (s *Stack) Peek() (interface{}, error) {
+func (s *Stack[T]) Peek() (res T, err error) {
 	if s.IsEmpty() {
-		return nil, errEmptyStack
+		return res, errEmptyStack
 	}
 	return s.list.GetLastValue()
 }
 
 // GetValues returns values
-func (s *Stack) GetValues() []interface{} {
+func (s *Stack[T]) GetValues() []T {
 	return s.list.GetValues()
 }
