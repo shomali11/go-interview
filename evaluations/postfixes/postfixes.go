@@ -14,7 +14,7 @@ var (
 
 // Evaluate evaluates postfix expressions
 func Evaluate(expression string) (float64, error) {
-	stack := slicestacks.New()
+	stack := slicestacks.New[float64]()
 	tokens := strings.Fields(expression)
 
 	for i := 0; i < len(tokens); i++ {
@@ -63,15 +63,11 @@ func isNumber(text string) (float64, bool) {
 	return number, err == nil
 }
 
-func pop(stack *slicestacks.Stack) (float64, error) {
+func pop(stack *slicestacks.Stack[float64]) (float64, error) {
 	numberInterface, err := stack.Pop()
 	if err != nil {
 		return 0, err
 	}
 
-	number, ok := numberInterface.(float64)
-	if !ok {
-		return 0, errERR
-	}
-	return number, nil
+	return numberInterface, nil
 }
