@@ -8,21 +8,20 @@ import (
 )
 
 // PrintLevels prints a tree level by level
-func PrintLevels(node *trees.MultiNode) {
+func PrintLevels[T any](node *trees.MultiNode[T]) {
 	if node == nil {
 		return
 	}
 
-	queue := queues.New()
+	queue := queues.New[*trees.MultiNode[T]]()
 	queue.Enqueue(node)
 
 	for !queue.IsEmpty() {
 		for size := queue.Size(); size > 0; size-- {
 			element, _ := queue.Dequeue()
-			node := element.(*trees.MultiNode)
 			fmt.Print(node.Data, " ")
 
-			for _, child := range node.Children {
+			for _, child := range element.Children {
 				queue.Enqueue(child)
 			}
 		}
