@@ -16,7 +16,7 @@ const (
 
 // IsBalancedParantheses determines if the parantheses are balanced
 func IsBalancedParantheses(expression string) bool {
-	stack := slicestacks.New()
+	stack := slicestacks.New[rune]()
 
 	for _, char := range []rune(expression) {
 		if isOpenParantheses(char) {
@@ -33,7 +33,7 @@ func IsBalancedParantheses(expression string) bool {
 			return false
 		}
 
-		if !isMatchingParanthesis(value.(rune), char) {
+		if !isMatchingParanthesis(value, char) {
 			return false
 		}
 	}
