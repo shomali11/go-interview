@@ -6,12 +6,12 @@ import (
 )
 
 // LongestDistinctPath returns the length of the longest distinct path
-func LongestDistinctPath(node *trees.MultiNode) int {
-	multiSet := hashmultisets.New()
+func LongestDistinctPath[T comparable](node *trees.MultiNode[T]) int {
+	multiSet := hashmultisets.New[T]()
 	return longestDistinctPath(node, multiSet)
 }
 
-func longestDistinctPath(node *trees.MultiNode, multiSet *hashmultisets.HashMultiSet) int {
+func longestDistinctPath[T comparable](node *trees.MultiNode[T], multiSet *hashmultisets.HashMultiSet[T]) int {
 	if node == nil || multiSet.Contains(node.Data) {
 		return multiSet.Size()
 	}
