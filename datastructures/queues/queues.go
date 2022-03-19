@@ -9,62 +9,61 @@ var (
 )
 
 // New factory to generate new Queues
-func New(values ...interface{}) *Queue {
-	Queue := Queue{make([]interface{}, 0, len(values))}
+func New[T any](values ...T) *Queue[T] {
+	Queue := Queue[T]{make([]T, 0, len(values))}
 	Queue.Enqueue(values...)
 	return &Queue
 }
 
 // Queue Queue structure
-type Queue struct {
-	array []interface{}
+type Queue[T any] struct {
+	array []T
 }
 
 // Enqueue add to the Queue
-func (q *Queue) Enqueue(values ...interface{}) {
+func (q *Queue[T]) Enqueue(values ...T) {
 	q.array = append(q.array, values...)
 }
 
 // IsEmpty checks if the Queue is empty
-func (q *Queue) IsEmpty() bool {
+func (q *Queue[T]) IsEmpty() bool {
 	return q.Size() == 0
 }
 
 // Size returns size of the Queue
-func (q *Queue) Size() int {
+func (q *Queue[T]) Size() int {
 	return len(q.array)
 }
 
 // Clear clears Queue
-func (q *Queue) Clear() {
+func (q *Queue[T]) Clear() {
 	q.array = nil
 }
 
 // Dequeue remove from the Queue
-func (q *Queue) Dequeue() (interface{}, error) {
+func (q *Queue[T]) Dequeue() (res T, err error) {
 	if q.IsEmpty() {
-		return nil, errEmptyQueue
+		return res, errEmptyQueue
 	}
 
-	value := q.array[0]
-	q.array[0] = nil
+	res = q.array[0]
 	q.array = q.array[1:]
-	return value, nil
+	return res, nil
 }
 
 // Peek returns front of the Queue
-func (q *Queue) Peek() (interface{}, error) {
+func (q *Queue[T]) Peek() (res T, err error) {
 	if q.IsEmpty() {
-		return nil, errEmptyQueue
+		return res, errEmptyQueue
 	}
 
-	value := q.array[0]
-	return value, nil
+	res = q.array[0]
+	return res, nil
 }
 
 // GetValues returns values
-func (q *Queue) GetValues() []interface{} {
-	values := make([]interface{}, 0, q.Size())
+func (q *Queue[T]) GetValues() []T {
+	values := make([]T, 0, q.Size())
 	for _, value := range q.array {
 		values = append(values, value)
 	}

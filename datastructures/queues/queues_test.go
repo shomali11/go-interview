@@ -8,7 +8,7 @@ import (
 )
 
 func TestQueue_Clear(t *testing.T) {
-	queue := New()
+	queue := New[string]()
 	assert.Equal(t, queue.Size(), 0)
 	assert.Equal(t, queue.IsEmpty(), true)
 
@@ -22,14 +22,14 @@ func TestQueue_Clear(t *testing.T) {
 }
 
 func TestQueue_GetValues(t *testing.T) {
-	queue := New()
+	queue := New[string]()
 
 	queue.Enqueue("hello", "abc", "xyz")
-	assert.True(t, reflect.DeepEqual(queue.GetValues(), []interface{}{"hello", "abc", "xyz"}))
+	assert.True(t, reflect.DeepEqual(queue.GetValues(), []string{"hello", "abc", "xyz"}))
 }
 
 func TestQueue_Peek(t *testing.T) {
-	queue := New()
+	queue := New[string]()
 
 	queue.Enqueue("hello")
 	value, err := queue.Peek()
@@ -43,9 +43,9 @@ func TestQueue_Peek(t *testing.T) {
 }
 
 func TestQueue_Dequeue(t *testing.T) {
-	queue := New()
+	queue := New[int]()
 
-	queue.Enqueue(111, true)
+	queue.Enqueue(111, 222)
 
 	value, err := queue.Dequeue()
 	assert.Nil(t, err)
@@ -57,7 +57,7 @@ func TestQueue_Dequeue(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, queue.IsEmpty(), true)
 	assert.Equal(t, queue.Size(), 0)
-	assert.Equal(t, value, true)
+	assert.Equal(t, value, 222)
 
 	_, err = queue.Dequeue()
 	assert.NotNil(t, err)
