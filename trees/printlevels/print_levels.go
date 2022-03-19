@@ -19,7 +19,7 @@ func PrintLevels[T any](node *trees.MultiNode[T]) {
 	for !queue.IsEmpty() {
 		for size := queue.Size(); size > 0; size-- {
 			element, _ := queue.Dequeue()
-			fmt.Print(node.Data, " ")
+			fmt.Print(element.Data, " ")
 
 			for _, child := range element.Children {
 				queue.Enqueue(child)
