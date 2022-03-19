@@ -8,9 +8,9 @@ import (
 )
 
 func TestInvertTrees(t *testing.T) {
-	node2 := &trees.MultiNode{Data: 2}
-	node3 := &trees.MultiNode{Data: 3}
-	node := &trees.MultiNode{Data: 1, Children: []*trees.MultiNode{node2, node3}}
+	node2 := &trees.MultiNode[int]{Data: 2}
+	node3 := &trees.MultiNode[int]{Data: 3}
+	node := &trees.MultiNode[int]{Data: 1, Children: []*trees.MultiNode[int]{node2, node3}}
 
 	node = InvertTree(node)
 
