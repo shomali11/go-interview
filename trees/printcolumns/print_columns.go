@@ -11,7 +11,7 @@ import (
 )
 
 // PrintColumns prints a tree column by column
-func PrintColumns[T constraints.Integer](node *trees.BinaryNode[T]) {
+func PrintColumns[T constraints.Ordered](node *trees.BinaryNode[T]) {
 	if node == nil {
 		return
 	}
@@ -52,7 +52,7 @@ func PrintColumns[T constraints.Integer](node *trees.BinaryNode[T]) {
 	}
 }
 
-func minMax[T constraints.Integer](values ...T) (T, T) {
+func minMax[T constraints.Ordered](values ...T) (T, T) {
 	first := values[0]
 	min := first
 	max := first
