@@ -9,24 +9,23 @@ import (
 )
 
 // PrintZigZag prints a tree zig zag
-func PrintZigZag(node *trees.MultiNode) {
+func PrintZigZag[T any](node *trees.MultiNode[T]) {
 	if node == nil {
 		return
 	}
 
-	queue := queues.New()
+	queue := queues.New[*trees.MultiNode[T]]()
 	queue.Enqueue(node)
 
-	list := doublylinkedlists.New()
+	list := doublylinkedlists.New[*trees.MultiNode[T]]()
 
 	isForwardDirection := true
 	for !queue.IsEmpty() {
 		for size := queue.Size(); size > 0; size-- {
 			element, _ := queue.Dequeue()
-			node := element.(*trees.MultiNode)
-			fmt.Print(node.Data, " ")
+			fmt.Print(element.Data, " ")
 
-			for _, child := range node.Children {
+			for _, child := range element.Children {
 				list.Add(child)
 			}
 		}

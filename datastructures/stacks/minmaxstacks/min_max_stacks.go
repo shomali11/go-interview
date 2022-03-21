@@ -11,10 +11,10 @@ var (
 )
 
 // New factory to generate new stacks
-func New(compare func(i, j interface{}) bool, values ...interface{}) *Stack {
-	stack := Stack{
-		valuesStack: slicestacks.New(),
-		minMaxStack: slicestacks.New(),
+func New[T any](compare func(i, j T) bool, values ...T) *Stack[T] {
+	stack := Stack[T]{
+		valuesStack: slicestacks.New[T](),
+		minMaxStack: slicestacks.New[[]T](),
 		compare:     compare,
 	}
 	stack.Push(values...)
@@ -22,29 +22,28 @@ func New(compare func(i, j interface{}) bool, values ...interface{}) *Stack {
 }
 
 // Stack stack structure
-type Stack struct {
-	valuesStack *slicestacks.Stack
-	minMaxStack *slicestacks.Stack
-	compare     func(i, j interface{}) bool
+type Stack[T any] struct {
+	valuesStack *slicestacks.Stack[T]
+	minMaxStack *slicestacks.Stack[[]T]
+	compare     func(i, j T) bool
 }
 
 // Push add to the stack
-func (s *Stack) Push(values ...interface{}) {
+func (s *Stack[T]) Push(values ...T) {
 	if len(values) == 0 {
 		return
 	}
 
-	var min interface{}
-	var max interface{}
+	var min T
+	var max T
 
 	if s.IsEmpty() {
 		min = values[0]
 		max = values[0]
 	} else {
 		minMaxInterface, _ := s.minMaxStack.Peek()
-		minMax := minMaxInterface.([]interface{})
-		min = minMax[0]
-		max = minMax[1]
+		min = minMaxInterface[0]
+		max = minMaxInterface[1]
 	}
 
 	for i := 0; i < len(values); i++ {
@@ -59,30 +58,30 @@ func (s *Stack) Push(values ...interface{}) {
 		}
 
 		s.valuesStack.Push(value)
-		s.minMaxStack.Push([]interface{}{min, max})
+		s.minMaxStack.Push([]T{min, max})
 	}
 }
 
 // IsEmpty checks if the stack is empty
-func (s *Stack) IsEmpty() bool {
+func (s *Stack[T]) IsEmpty() bool {
 	return s.Size() == 0
 }
 
 // Size returns size of the stack
-func (s *Stack) Size() int {
+func (s *Stack[T]) Size() int {
 	return s.valuesStack.Size()
 }
 
 // Clear clears stack
-func (s *Stack) Clear() {
+func (s *Stack[T]) Clear() {
 	s.valuesStack.Clear()
 	s.minMaxStack.Clear()
 }
 
 // Pop remove from the stack
-func (s *Stack) Pop() (interface{}, error) {
+func (s *Stack[T]) Pop() (res T, err error) {
 	if s.IsEmpty() {
-		return nil, errEmptyStack
+		return res, errEmptyStack
 	}
 
 	s.minMaxStack.Pop()
@@ -90,26 +89,26 @@ func (s *Stack) Pop() (interface{}, error) {
 }
 
 // Peek returns top of the stack
-func (s *Stack) Peek() (interface{}, error) {
+func (s *Stack[T]) Peek() (res T, err error) {
 	if s.IsEmpty() {
-		return nil, errEmptyStack
+		return res, errEmptyStack
 	}
 
 	return s.valuesStack.Peek()
 }
 
 // GetValues returns values
-func (s *Stack) GetValues() []interface{} {
+func (s *Stack[T]) GetValues() []T {
 	return s.valuesStack.GetValues()
 }
 
 // GetMinMax returns the min and max values
-func (s *Stack) GetMinMax() (interface{}, interface{}, error) {
+func (s *Stack[T]) GetMinMax() (min T, max T, err error) {
 	if s.IsEmpty() {
-		return nil, nil, errEmptyStack
+		return min, max, errEmptyStack
 	}
 
 	minMaxInterface, err := s.minMaxStack.Peek()
-	minMax := minMaxInterface.([]interface{})
+	minMax := minMaxInterface
 	return minMax[0], minMax[1], err
 }

@@ -8,11 +8,11 @@ import (
 )
 
 func TestStack_Clear(t *testing.T) {
-	compare := func(i, j interface{}) bool {
-		return i.(string) < j.(string)
+	compare := func(i, j string) bool {
+		return i < j
 	}
 
-	stack := New(compare)
+	stack := New[string](compare)
 	assert.Equal(t, stack.Size(), 0)
 	assert.Equal(t, stack.IsEmpty(), true)
 
@@ -26,22 +26,22 @@ func TestStack_Clear(t *testing.T) {
 }
 
 func TestStack_GetValues(t *testing.T) {
-	compare := func(i, j interface{}) bool {
-		return i.(string) < j.(string)
+	compare := func(i, j string) bool {
+		return i < j
 	}
 
-	stack := New(compare)
+	stack := New[string](compare)
 
 	stack.Push("hello", "abc", "xyz")
-	assert.True(t, reflect.DeepEqual(stack.GetValues(), []interface{}{"hello", "abc", "xyz"}))
+	assert.True(t, reflect.DeepEqual(stack.GetValues(), []string{"hello", "abc", "xyz"}))
 }
 
 func TestStack_Peek(t *testing.T) {
-	compare := func(i, j interface{}) bool {
-		return i.(string) < j.(string)
+	compare := func(i, j string) bool {
+		return i < j
 	}
 
-	stack := New(compare)
+	stack := New[string](compare)
 
 	stack.Push("hello")
 	value, err := stack.Peek()
@@ -55,11 +55,11 @@ func TestStack_Peek(t *testing.T) {
 }
 
 func TestStack_Pop(t *testing.T) {
-	compare := func(i, j interface{}) bool {
-		return i.(int) < j.(int)
+	compare := func(i, j int) bool {
+		return i < j
 	}
 
-	stack := New(compare)
+	stack := New[int](compare)
 
 	stack.Push(111, 222)
 
@@ -80,11 +80,11 @@ func TestStack_Pop(t *testing.T) {
 }
 
 func TestStack_GetMinMax(t *testing.T) {
-	compare := func(i, j interface{}) bool {
-		return i.(int) < j.(int)
+	compare := func(i, j int) bool {
+		return i < j
 	}
 
-	stack := New(compare)
+	stack := New[int](compare)
 
 	stack.Push(111, 222, 55, 333)
 

@@ -7,12 +7,12 @@ import (
 )
 
 // IsBalanced checks if a binary tree is balanced
-func IsBalanced(node *trees.BinaryNode) bool {
+func IsBalanced[T any](node *trees.BinaryNode[T]) bool {
 	_, balanced := isBalanced(node)
 	return balanced
 }
 
-func isBalanced(node *trees.BinaryNode) (int, bool) {
+func isBalanced[T any](node *trees.BinaryNode[T]) (int, bool) {
 	if node == nil {
 		return 0, true
 	}

@@ -2,6 +2,7 @@ package singlylinkedlists
 
 import (
 	"errors"
+	"reflect"
 )
 
 var (
@@ -10,37 +11,37 @@ var (
 )
 
 // New factory to generate new singly linked lists
-func New(values ...interface{}) *SinglyLinkedList {
-	list := SinglyLinkedList{}
+func New[T any](values ...T) *SinglyLinkedList[T] {
+	list := SinglyLinkedList[T]{}
 	list.Add(values...)
 	return &list
 }
 
 // SLLNode singly linked list node
-type SLLNode struct {
-	Value interface{}
-	Next  *SLLNode
+type SLLNode[T any] struct {
+	Value T
+	Next  *SLLNode[T]
 }
 
 // SinglyLinkedList singly linked list structure
-type SinglyLinkedList struct {
+type SinglyLinkedList[T any] struct {
 	count int
-	head  *SLLNode
-	tail  *SLLNode
+	head  *SLLNode[T]
+	tail  *SLLNode[T]
 }
 
 // IsEmpty checks if the list is empty
-func (s *SinglyLinkedList) IsEmpty() bool {
+func (s *SinglyLinkedList[T]) IsEmpty() bool {
 	return s.Size() == 0
 }
 
 // Size returns size of the list
-func (s *SinglyLinkedList) Size() int {
+func (s *SinglyLinkedList[T]) Size() int {
 	return s.count
 }
 
 // Clear clears list
-func (s *SinglyLinkedList) Clear() {
+func (s *SinglyLinkedList[T]) Clear() {
 	current := s.head
 	for current != nil {
 		temp := current
@@ -55,8 +56,8 @@ func (s *SinglyLinkedList) Clear() {
 }
 
 // GetValues returns values
-func (s *SinglyLinkedList) GetValues() []interface{} {
-	values := make([]interface{}, 0, s.Size())
+func (s *SinglyLinkedList[T]) GetValues() []T {
+	values := make([]T, 0, s.Size())
 	current := s.head
 	for current != nil {
 		values = append(values, current.Value)
@@ -67,11 +68,11 @@ func (s *SinglyLinkedList) GetValues() []interface{} {
 }
 
 // GetIndexOf returns the index of the first occurence
-func (s *SinglyLinkedList) GetIndexOf(value interface{}) int {
+func (s *SinglyLinkedList[T]) GetIndexOf(value T) int {
 	index := 0
 	current := s.head
 	for current != nil {
-		if value == current.Value {
+		if reflect.DeepEqual(value, current.Value) {
 			return index
 		}
 		current = current.Next
@@ -82,19 +83,19 @@ func (s *SinglyLinkedList) GetIndexOf(value interface{}) int {
 }
 
 // Add add to the list
-func (s *SinglyLinkedList) Add(values ...interface{}) {
+func (s *SinglyLinkedList[T]) Add(values ...T) {
 	for _, value := range values {
 		s.InsertAt(s.Size(), value)
 	}
 }
 
 // InsertAt insert value at specific index in the list
-func (s *SinglyLinkedList) InsertAt(index int, value interface{}) error {
+func (s *SinglyLinkedList[T]) InsertAt(index int, value T) error {
 	if index < 0 || index > s.count {
 		return errIndexOutOfBounds
 	}
 
-	element := &SLLNode{Value: value}
+	element := &SLLNode[T]{Value: value}
 	if s.IsEmpty() {
 		s.head = element
 		s.tail = element
@@ -133,75 +134,75 @@ func (s *SinglyLinkedList) InsertAt(index int, value interface{}) error {
 }
 
 // RemoveAt remove value from the list at specific index
-func (s *SinglyLinkedList) RemoveAt(index int) (interface{}, error) {
+func (s *SinglyLinkedList[T]) RemoveAt(index int) (res T, err error) {
 	if index < 0 || index >= s.count {
-		return nil, errIndexOutOfBounds
+		return res, errIndexOutOfBounds
 	}
 
 	if s.count == 1 {
-		value := s.head.Value
+		res = s.head.Value
 		s.head = nil
 		s.tail = nil
 		s.count--
-		return value, nil
+		return res, nil
 	}
 
 	if index == 0 {
 		current := s.head
 		s.head = current.Next
 		current.Next = nil
-		value := current.Value
+		res = current.Value
 		s.count--
 		current = nil
-		return value, nil
+		return res, nil
 	}
 
 	current, err := s.getNode(index - 1)
 	if err != nil {
-		return nil, err
+		return res, err
 	}
 
-	value := current.Next.Value
+	res = current.Next.Value
 	current.Next = current.Next.Next
 	if index == s.count-1 {
 		s.tail = current
 	}
 	s.count--
 	current = nil
-	return value, nil
+	return res, nil
 }
 
 // GetValueAt returns value at a specific index in the list
-func (s *SinglyLinkedList) GetValueAt(index int) (interface{}, error) {
+func (s *SinglyLinkedList[T]) GetValueAt(index int) (res T, err error) {
 	current, err := s.getNode(index)
 	if err != nil {
-		return nil, err
+		return res, err
 	}
 	return current.Value, nil
 }
 
 // GetFirstValue returns first value in the list
-func (s *SinglyLinkedList) GetFirstValue() (interface{}, error) {
+func (s *SinglyLinkedList[T]) GetFirstValue() (res T, err error) {
 	if s.IsEmpty() {
-		return nil, errEmptyList
+		return res, errEmptyList
 	}
 	return s.head.Value, nil
 }
 
 // GetLastValue returns last value in the list
-func (s *SinglyLinkedList) GetLastValue() (interface{}, error) {
+func (s *SinglyLinkedList[T]) GetLastValue() (res T, err error) {
 	if s.IsEmpty() {
-		return nil, errEmptyList
+		return res, errEmptyList
 	}
 	return s.tail.Value, nil
 }
 
 // GetHead returns head node of the list
-func (s *SinglyLinkedList) GetHead() *SLLNode {
+func (s *SinglyLinkedList[T]) GetHead() *SLLNode[T] {
 	return s.head
 }
 
-func (s *SinglyLinkedList) getNode(index int) (*SLLNode, error) {
+func (s *SinglyLinkedList[T]) getNode(index int) (*SLLNode[T], error) {
 	if index < 0 || index >= s.count {
 		return nil, errIndexOutOfBounds
 	}

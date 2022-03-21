@@ -5,7 +5,7 @@ import (
 )
 
 // Height returns a tree's height
-func Height(node *trees.MultiNode) int {
+func Height[T any](node *trees.MultiNode[T]) int {
 	if node == nil {
 		return 0
 	}

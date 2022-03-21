@@ -1,16 +1,16 @@
 package trees
 
 // MultiNode multi node
-type MultiNode struct {
-	Parent   *MultiNode
-	Data     interface{}
-	Children []*MultiNode
+type MultiNode[T any] struct {
+	Parent   *MultiNode[T]
+	Data     T
+	Children []*MultiNode[T]
 }
 
 // BinaryNode binary node
-type BinaryNode struct {
-	Parent *BinaryNode
-	Data   interface{}
-	Left   *BinaryNode
-	Right  *BinaryNode
+type BinaryNode[T any] struct {
+	Parent *BinaryNode[T]
+	Data   T
+	Left   *BinaryNode[T]
+	Right  *BinaryNode[T]
 }

@@ -19,7 +19,7 @@ func Encode(number int) string {
 	remainder := 0
 	for number > 0 {
 		remainder = (number - 1) % alphabetsCount
-		buffer.WriteString(string(characterA + remainder))
+		buffer.WriteString(string(rune(characterA + remainder)))
 		number = (number - remainder) / alphabetsCount
 	}
 	return reversestrings.ReverseString(buffer.String())

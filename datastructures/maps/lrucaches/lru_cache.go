@@ -5,30 +5,30 @@ import (
 )
 
 // New factory that creates a new LRU Cache
-func New(capacity int) *LRUCache {
-	multiMap := LRUCache{
+func New[K comparable, V any](capacity int) *LRUCache[K, V] {
+	multiMap := LRUCache[K, V]{
 		capacity:   capacity,
 		linkedList: list.New(),
-		hashMap:    make(map[interface{}]*list.Element),
+		hashMap:    make(map[K]*list.Element),
 	}
 	return &multiMap
 }
 
 // LRUEntry holds a key/value pair
-type LRUEntry struct {
-	Key   interface{}
-	Value interface{}
+type LRUEntry[K comparable, V any] struct {
+	Key   K
+	Value V
 }
 
 // LRUCache a data structure representing a map of keys with lists of values
-type LRUCache struct {
+type LRUCache[K comparable, V any] struct {
 	capacity   int
 	linkedList *list.List
-	hashMap    map[interface{}]*list.Element
+	hashMap    map[K]*list.Element
 }
 
 // Merge merge multiple lru caches
-func (s *LRUCache) Merge(caches ...*LRUCache) {
+func (s *LRUCache[K, V]) Merge(caches ...*LRUCache[K, V]) {
 	for _, cache := range caches {
 		for _, key := range cache.GetKeys() {
 			value, ok := cache.GetValue(key)
@@ -42,26 +42,26 @@ func (s *LRUCache) Merge(caches ...*LRUCache) {
 }
 
 // Put key/value pair into the cache
-func (s *LRUCache) Put(key interface{}, value interface{}) {
+func (s *LRUCache[K, V]) Put(key K, value V) {
 	if s.capacity == s.Size() {
 		element := s.linkedList.Back()
 		if element == nil {
 			return
 		}
-		s.remove(element.Value.(*LRUEntry).Key)
+		s.remove(element.Value.(*LRUEntry[K, V]).Key)
 	}
 
-	lruEntry := &LRUEntry{Key: key, Value: value}
+	lruEntry := &LRUEntry[K, V]{Key: key, Value: value}
 	listElement := s.linkedList.PushFront(lruEntry)
 	s.hashMap[key] = listElement
 }
 
 // GetKeys returns a list of the cache's keys in most recently used order
-func (s *LRUCache) GetKeys() []interface{} {
-	keys := make([]interface{}, 0, s.Size())
+func (s *LRUCache[K, V]) GetKeys() []K {
+	keys := make([]K, 0, s.Size())
 	currentListElement := s.linkedList.Front()
 	for currentListElement != nil {
-		entry := currentListElement.Value.(*LRUEntry)
+		entry := currentListElement.Value.(*LRUEntry[K, V])
 		keys = append(keys, entry.Key)
 		currentListElement = currentListElement.Next()
 	}
@@ -69,11 +69,11 @@ func (s *LRUCache) GetKeys() []interface{} {
 }
 
 // GetEntries returns a list of the cache's entries in most recently used order
-func (s *LRUCache) GetEntries() []*LRUEntry {
-	entries := make([]*LRUEntry, 0, s.Size())
+func (s *LRUCache[K, V]) GetEntries() []*LRUEntry[K, V] {
+	entries := make([]*LRUEntry[K, V], 0, s.Size())
 	currentListElement := s.linkedList.Front()
 	for currentListElement != nil {
-		entry := currentListElement.Value.(*LRUEntry)
+		entry := currentListElement.Value.(*LRUEntry[K, V])
 		entries = append(entries, entry)
 		currentListElement = currentListElement.Next()
 	}
@@ -81,13 +81,13 @@ func (s *LRUCache) GetEntries() []*LRUEntry {
 }
 
 // Contains checks if a key is in cache
-func (s *LRUCache) Contains(key interface{}) bool {
+func (s *LRUCache[K, V]) Contains(key K) bool {
 	_, exists := s.hashMap[key]
 	return exists
 }
 
 // ContainsAll checks if all keys are in the cache
-func (s *LRUCache) ContainsAll(keys ...interface{}) bool {
+func (s *LRUCache[K, V]) ContainsAll(keys ...K) bool {
 	for _, key := range keys {
 		if !s.Contains(key) {
 			return false
@@ -97,7 +97,7 @@ func (s *LRUCache) ContainsAll(keys ...interface{}) bool {
 }
 
 // ContainsAny checks if any keys are in the cache
-func (s *LRUCache) ContainsAny(keys ...interface{}) bool {
+func (s *LRUCache[K, V]) ContainsAny(keys ...K) bool {
 	for _, key := range keys {
 		if s.Contains(key) {
 			return true
@@ -107,41 +107,41 @@ func (s *LRUCache) ContainsAny(keys ...interface{}) bool {
 }
 
 // GetValue returns value associated with the key
-func (s *LRUCache) GetValue(key interface{}) (interface{}, bool) {
+func (s *LRUCache[K, V]) GetValue(key K) (res V, found bool) {
 	listElement, ok := s.hashMap[key]
 	if !ok {
-		return nil, false
+		return res, false
 	}
 
 	s.linkedList.MoveToFront(listElement)
-	lruEntry := listElement.Value.(*LRUEntry)
+	lruEntry := listElement.Value.(*LRUEntry[K, V])
 	return lruEntry.Value, true
 }
 
 // Remove removes a key and its value
-func (s *LRUCache) Remove(keys ...interface{}) {
+func (s *LRUCache[K, V]) Remove(keys ...K) {
 	for _, key := range keys {
 		s.remove(key)
 	}
 }
 
 // Clear clears the multiMap
-func (s *LRUCache) Clear() {
-	s.hashMap = make(map[interface{}]*list.Element)
+func (s *LRUCache[K, V]) Clear() {
+	s.hashMap = make(map[K]*list.Element)
 	s.linkedList.Init()
 }
 
 // IsEmpty checks if the multiMap is empty
-func (s *LRUCache) IsEmpty() bool {
+func (s *LRUCache[K, V]) IsEmpty() bool {
 	return s.Size() == 0
 }
 
 // Size returns size of the multiMap
-func (s *LRUCache) Size() int {
+func (s *LRUCache[K, V]) Size() int {
 	return len(s.hashMap)
 }
 
-func (s *LRUCache) remove(key interface{}) {
+func (s *LRUCache[K, V]) remove(key K) {
 	listElement, ok := s.hashMap[key]
 	if !ok {
 		return

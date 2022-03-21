@@ -8,7 +8,7 @@ import (
 )
 
 func TestStack_Clear(t *testing.T) {
-	stack := New()
+	stack := New[string]()
 	assert.Equal(t, stack.Size(), 0)
 	assert.Equal(t, stack.IsEmpty(), true)
 
@@ -22,14 +22,14 @@ func TestStack_Clear(t *testing.T) {
 }
 
 func TestStack_GetValues(t *testing.T) {
-	stack := New()
+	stack := New[string]()
 
 	stack.Push("hello", "abc", "xyz")
-	assert.True(t, reflect.DeepEqual(stack.GetValues(), []interface{}{"hello", "abc", "xyz"}))
+	assert.True(t, reflect.DeepEqual(stack.GetValues(), []string{"hello", "abc", "xyz"}))
 }
 
 func TestStack_Peek(t *testing.T) {
-	stack := New()
+	stack := New[string]()
 
 	stack.Push("hello")
 	value, err := stack.Peek()
@@ -43,15 +43,15 @@ func TestStack_Peek(t *testing.T) {
 }
 
 func TestStack_Pop(t *testing.T) {
-	stack := New()
+	stack := New[int]()
 
-	stack.Push(111, true)
+	stack.Push(111, 222)
 
 	value, err := stack.Pop()
 	assert.Nil(t, err)
 	assert.Equal(t, stack.IsEmpty(), false)
 	assert.Equal(t, stack.Size(), 1)
-	assert.Equal(t, value, true)
+	assert.Equal(t, value, 222)
 
 	value, err = stack.Pop()
 	assert.Nil(t, err)

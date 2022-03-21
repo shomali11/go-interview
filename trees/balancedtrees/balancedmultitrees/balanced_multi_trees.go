@@ -7,12 +7,12 @@ import (
 )
 
 // IsBalanced checks if a multi tree is balanced
-func IsBalanced(node *trees.MultiNode) bool {
+func IsBalanced[T any](node *trees.MultiNode[T]) bool {
 	_, balanced := isBalanced(node)
 	return balanced
 }
 
-func isBalanced(node *trees.MultiNode) (int, bool) {
+func isBalanced[T any](node *trees.MultiNode[T]) (int, bool) {
 	if node == nil {
 		return 0, true
 	}
