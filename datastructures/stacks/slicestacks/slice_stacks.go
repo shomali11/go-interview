@@ -65,8 +65,6 @@ func (s *Stack[T]) Peek() (res T, err error) {
 // GetValues returns values
 func (s *Stack[T]) GetValues() []T {
 	values := make([]T, 0, s.Size())
-	for _, value := range s.array {
-		values = append(values, value)
-	}
+	values = append(values, s.array...)
 	return values
 }

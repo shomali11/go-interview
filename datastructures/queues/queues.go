@@ -64,8 +64,6 @@ func (q *Queue[T]) Peek() (res T, err error) {
 // GetValues returns values
 func (q *Queue[T]) GetValues() []T {
 	values := make([]T, 0, q.Size())
-	for _, value := range q.array {
-		values = append(values, value)
-	}
+	values = append(values, q.array...)
 	return values
 }
