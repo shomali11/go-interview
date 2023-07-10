@@ -58,7 +58,7 @@ func ExtractWords(input string, values []string) []string {
 
 	results := make([]string, 0)
 	for _, item := range resultSet.GetValues() {
-		results = append(results, fmt.Sprintf(stringFormat, item))
+		results = append(results, item)
 	}
 	return results
 }
